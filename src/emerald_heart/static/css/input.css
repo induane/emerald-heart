@@ -1,0 +1,9 @@
+@import "tailwindcss" source(none);
+@import "./line-awesome.css";
+@import "./reset.css";
+
+@source "../../templates/*.html";
+@source "../../templates/**/*.html";
+@source "../../templates/**/**/*.html";
+@source "../../templates/**/**/**/*.html";
+@source "../../templates/**/**/**/**/*.html";

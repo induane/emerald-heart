@@ -1,0 +1,42 @@
+# This file contains definitions used by the Makefile; they are kept
+# separate here in order to make the Makefile easier to grok. Real
+# targets are kept in the Makefile.
+
+# Define a linebreak variable for use in info/warning/error messages
+define LINEBREAK
+
+
+endef
+
+MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
+MAKEFILE_DIR := $(patsubst %/,%,$(dir $(MAKEFILE_PATH)))
+STATICFILES := $(MAKEFILE_DIR)/src/emerald_heart/static
+IP := 0.0.0.0
+PORT := 4213
+NODE_PACKAGES := terser tailwindcss @tailwindcss/cli
+WITH_CONTEXT := export DJANGO_SETTINGS_MODULE=emerald_heart.settings.local &&
+TEST_CONTEXT := export DJANGO_SETTINGS_MODULE=emerald_heart.settings.test &&
+
+# Select yarn or fallback to npm if yarn isn't found (or error out)
+ifneq (, $(shell command -v yarn))
+NODE_INSTALL := yarn add $(NODE_PACKAGES)
+else ifneq (, $(shell command -v yarnpkg))
+NODE_INSTALL := yarnpkg add $(NODE_PACKAGES)
+else ifneq (, $(shell command -v npm))
+NODE_INSTALL := npm install $(NODE_PACKAGES)
+else
+$(error No yarn or npm found in $(PATH))
+endif
+
+FIXTURE_FILES := $(MAKEFILE_DIR)/src/emerald_heart/fixtures/auth.json
+
+# List of all Javascript files which need to be minified into a single payload
+JAVASCRIPT_FILES := $(MAKEFILE_DIR)/src/emerald_heart/static/js/htmx.js \
+	$(MAKEFILE_DIR)/src/emerald_heart/static/js/_hyperscript.js \
+	$(MAKEFILE_DIR)/src/emerald_heart/static/js/_template.js \
+
+.DEFAULT_GOAL := help
+
+.PHONY: help
+help: ## Show this help
+	@grep -E -h '\s##\s' $(MAKEFILE_LIST) | grep --invert-match -E '.+?MAKEFILE_DIR.+' | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'

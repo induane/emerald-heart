@@ -1,0 +1,13 @@
+{# A button that navigates #}
+<button type="{% if button_type %}{{ button_type }}{% else %}button{% endif %}"
+        hx-target="#main-content"
+        hx-select="#main-content"
+        hx-get="{{ link_url }}"
+        hx-push-url="{{ link_url }}"
+        {% if confirm_message %}hx-confirm="{{ confirm_message }}"{% endif %}
+        {% if title %}title="{{ title }}"{% else %}title="{{ link_url }}"{% endif %}
+        class="{% include 'partial/buttons/common-classes.html' %}{% if extra_classes %} {{ extra_classes }}{% endif %}"
+        {% if btn_id %}id="{{ btn_id }}"{% endif %}>
+    {% if la_icon %}<i class="{{ la_icon }} pr-0.5" aria-hidden="true"></i>{% endif %}
+    {{ button_text }}
+</button>

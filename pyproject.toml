@@ -34,6 +34,7 @@ dev = [
     "django-types",
     "ty",
     "types-docutils~=0.21",
+    "djlint>=1.36.4",
 ]
 
 [tool.setuptools]

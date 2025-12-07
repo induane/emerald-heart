@@ -1,3 +1,27 @@
 i.la {
     line-height: inherit;
 }
+
+html {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 14px;
+    font-weight: normal;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+form {
+    margin: 0 0 0.5em 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+.display-none {
+    display: none;
+}

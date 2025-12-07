@@ -1,0 +1,10 @@
+{% extends 'core.html' %}
+{% block body %}
+    <main class="px-5 py-3 w-full max-w-(--breakpoint-md)">
+        {% if column_1_name %}
+            <h1 class="text-slate-700 text-base pb-2 md:text-lg lg:text-lg 2xl:text-2xl mb-2 font-bold border-solid border-b border-slate-200"
+                id="column-1-header">{{ column_1_name }}</h1>
+        {% endif %}
+        {% include 'partial/form.html' %}
+    </main>
+{% endblock %}

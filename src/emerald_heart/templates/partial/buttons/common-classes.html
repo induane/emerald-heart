@@ -1,0 +1,35 @@
+px-6
+py-2.5
+{% if btn_color == 'red' %}
+    bg-red-600
+{% else %}
+    bg-emerald-600
+{% endif %}
+text-white
+font-medium
+text-xs
+leading-tight
+uppercase
+rounded
+shadow-md
+{% if btn_color == 'red' %}
+    hover:bg-red-700
+{% else %}
+    hover:bg-emerald-700
+{% endif %}
+hover:shadow-lg
+{% if btn_color == 'red' %}
+    focus:bg-red-700
+{% else %}
+    focus:bg-emerald-700
+{% endif %}
+focus:outline-none
+{% if btn_color == 'red' %}
+    active:bg-red-800
+{% else %}
+    active:bg-emerald-800
+{% endif %}
+active:shadow-lg
+transition
+duration-150
+ease-in-out

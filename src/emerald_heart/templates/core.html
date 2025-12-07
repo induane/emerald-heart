@@ -1,66 +1,95 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-pink-50">
-<head>
-
-<title>{{ SITE_NAME_long }}</title>
-
-{% block head_styles %}
-{% endblock %}
-<link href="{% static 'css/emerald.min.css' %}" rel="stylesheet" type="text/css" media="all">
-
-{% block head_meta %}
-{% endblock %}
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="mobile-web-app-capable" content="yes">
-
-{# Application logos #}
-<link href="{% static 'images/apple-icon-114x114.png' %}" rel="apple-touch-icon" sizes="114x114">
-<link href="{% static 'images/apple-icon-120x120.png' %}" rel="apple-touch-icon" sizes="120x120">
-<link href="{% static 'images/apple-icon-144x144.png' %}" rel="apple-touch-icon" sizes="144x144">
-<link href="{% static 'images/apple-icon-152x152.png' %}" rel="apple-touch-icon" sizes="152x152">
-<link href="{% static 'images/apple-icon-180x180.png' %}" rel="apple-touch-icon" sizes="180x180">
-<link href="{% static 'images/apple-icon-57x57.png' %}" rel="apple-touch-icon" sizes="57x57">
-<link href="{% static 'images/apple-icon-60x60.png' %}" rel="apple-touch-icon" sizes="60x60">
-<link href="{% static 'images/apple-icon-72x72.png' %}" rel="apple-touch-icon" sizes="72x72">
-<link href="{% static 'images/apple-icon-76x76.png' %}" rel="apple-touch-icon" sizes="76x76">
-<link href="{% static 'images/favicon-16x16.png' %}" rel="icon" type="image/png" sizes="16x16">
-<link href="{% static 'images/favicon-192x192.png' %}" rel="icon" type="image/png" sizes="192x192">
-<link href="{% static 'images/favicon-32x32.png' %}" rel="icon" type="image/png" sizes="32x32">
-<link href="{% static 'images/favicon-96x96.png' %}" rel="icon" type="image/png" sizes="96x96">
-<link href="{% static 'images/favicon.ico' %}" rel="icon" type="image/vnd.microsoft.icon">
-<meta name="msapplication-square150x150logo" content="{% static 'images/ms-icon-150x150.png' %}">
-<meta name="msapplication-square310x310logo" content="{% static 'images/ms-icon-310x310.png' %}">
-<meta name="msapplication-square70x70logo" content="{% static 'images/ms-icon-70x70.png' %}">
-<meta name="msapplication-TileColor" content="#FFF">
-<meta name="msapplication-TileImage" content="{% static 'images/ms-icon-144x144.png' %}">
-
-{% block head_scripts %}
-{% endblock %}
-
-</head>
-<body class="subpixel-antialiased bg-emerald-50">
-<div id="main-content" class=" inset-0 max-w-(--breakpoint-2xl) ml-auto mr-auto shadow-lg min-h-96 pb-36">
-{% if not hide_header_bar %}{% include 'partials/header.html' %}{% endif %}
-{% block body %}
-{% endblock %}
-</div>
-
-{# JS is at the end to improve perceived load time and decrease/eliminate flickering #}
-<script src="{% static 'js/emerald.min.js' %}"></script>
-
-{# Ensure all htmx ajax requests are dispatched with the CSRF token #}
-<script>
+    <head>
+        <title>{{ SITE_NAME_long }}</title>
+        {% block head_styles %}{% endblock %}
+        <link href="{% static 'css/emerald.min.css' %}"
+              rel="stylesheet"
+              type="text/css"
+              media="all">
+        {% block head_meta %}{% endblock %}
+        <meta charset="UTF-8">
+        <meta name="keywords" content="directory,community,forum" />
+        <meta name="description" content="A community directory and forum" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="mobile-web-app-capable" content="yes">
+        {# Application logos #}
+        <link href="{% static 'images/apple-icon-114x114.png' %}"
+              rel="apple-touch-icon"
+              sizes="114x114">
+        <link href="{% static 'images/apple-icon-120x120.png' %}"
+              rel="apple-touch-icon"
+              sizes="120x120">
+        <link href="{% static 'images/apple-icon-144x144.png' %}"
+              rel="apple-touch-icon"
+              sizes="144x144">
+        <link href="{% static 'images/apple-icon-152x152.png' %}"
+              rel="apple-touch-icon"
+              sizes="152x152">
+        <link href="{% static 'images/apple-icon-180x180.png' %}"
+              rel="apple-touch-icon"
+              sizes="180x180">
+        <link href="{% static 'images/apple-icon-57x57.png' %}"
+              rel="apple-touch-icon"
+              sizes="57x57">
+        <link href="{% static 'images/apple-icon-60x60.png' %}"
+              rel="apple-touch-icon"
+              sizes="60x60">
+        <link href="{% static 'images/apple-icon-72x72.png' %}"
+              rel="apple-touch-icon"
+              sizes="72x72">
+        <link href="{% static 'images/apple-icon-76x76.png' %}"
+              rel="apple-touch-icon"
+              sizes="76x76">
+        <link href="{% static 'images/favicon-16x16.png' %}"
+              rel="icon"
+              type="image/png"
+              sizes="16x16">
+        <link href="{% static 'images/favicon-192x192.png' %}"
+              rel="icon"
+              type="image/png"
+              sizes="192x192">
+        <link href="{% static 'images/favicon-32x32.png' %}"
+              rel="icon"
+              type="image/png"
+              sizes="32x32">
+        <link href="{% static 'images/favicon-96x96.png' %}"
+              rel="icon"
+              type="image/png"
+              sizes="96x96">
+        <link href="{% static 'images/favicon.ico' %}"
+              rel="icon"
+              type="image/vnd.microsoft.icon">
+        <meta name="msapplication-square150x150logo"
+              content="{% static 'images/ms-icon-150x150.png' %}">
+        <meta name="msapplication-square310x310logo"
+              content="{% static 'images/ms-icon-310x310.png' %}">
+        <meta name="msapplication-square70x70logo"
+              content="{% static 'images/ms-icon-70x70.png' %}">
+        <meta name="msapplication-TileColor" content="#FFF">
+        <meta name="msapplication-TileImage"
+              content="{% static 'images/ms-icon-144x144.png' %}">
+        {% block head_scripts %}{% endblock %}
+    </head>
+    <body class="subpixel-antialiased bg-emerald-50">
+        <div id="main-content"
+             class="inset-0 max-w-(--breakpoint-2xl) ml-auto mr-auto shadow-lg min-h-96 pb-36">
+            {% if not hide_header_bar %}
+                {% include 'partial/header.html' %}
+            {% endif %}
+            {% block body %}{% endblock %}
+        </div>
+        {# JS is at the end to improve perceived load time and decrease/eliminate flickering #}
+        <script src="{% static 'js/emerald.min.js' %}"></script>
+        {# Ensure all htmx ajax requests are dispatched with the CSRF token #}
+        <script>
   CSRF_TOKEN = "{{ csrf_token }}";
   document.body.addEventListener('htmx:configRequest', (event) => {
     event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
   })
-</script>
-
-{# All extra scripts belong here #}
-{% block extra-scripts %}
-{% endblock %}
-
-</body>
+        </script>
+        {# All extra scripts belong here #}
+        {% block extra-scripts %}{% endblock %}
+    </body>
 </html>

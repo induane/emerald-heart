@@ -42,6 +42,15 @@ migrations:  # Generate database migrations
 check-types:  ## Run the ty typechecker
 	uv run --group dev ty check --exclude=**/utils/image.py
 
+.PHONY: check-html
+check-html:  ## Run template linter
+	uv run --group dev djlint . --extension=html --check
+	uv run --group dev djlint . --extension=html --lint
+
+.PHONY: format-html
+format-html: ## Run the template formatter
+	@uv run --group dev djlint . --extension=html --reformat
+
 .PHONY: format-code
 format-code:  # Run the ruff code formatter
 	@$(IN_ENV) ruff format $(MAKEFILE_DIR)/src/ $(MAKEFILE_DIR)/tests/ $(MAKEFILE_DIR)/resources/generate_images.py

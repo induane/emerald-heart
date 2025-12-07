@@ -2,56 +2,54 @@
 {% load static %}
 {% load emerald_filters %}
 {% block body %}
-{% url 'blog' as home_url %}
-<section class="h-full gradient-form bg-gray-100 md:h-screen">
-  <div class="container py-12 px-6 h-full ml-auto mr-auto">
-    <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-600">
-      <div class="xl:w-10/12">
-        <div class="block bg-white shadow-lg rounded-lg">
-          <div class="lg:flex lg:flex-wrap g-0">
-            <div class="lg:w-6/12 px-4 md:px-0">
-              <div class="md:p-12 md:mx-6">
-                <div class="text-center">
-                  <h4 class="text-xl font-semibold mt-1 mb-12 pb-1">Welcome to the {{ SITE_NAME }}</h4>
-                </div>
-                <form action="{% url 'auth-login' %}" method="post" accept-charset="utf-8">
-                  <p class="mb-4">Login to your account</p>
-                  {% csrf_token %}
-                  <input type="hidden" name="next" value="{{ next }}" />
-                  <div class="mb-4">
-                    {{ form.username|addclass:'form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-sm transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-emerald-600 focus:outline-hidden' }}
-                  </div>
-                  <div class="mb-4">
-                    {{ form.password|addclass:'form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-sm transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-emerald-600 focus:outline-hidden' }}
-                  </div>
-                  {% if form.errors %}
-                    <div class="mb-4 text-red-600">
-                      <i class="las la-exclamation-triangle"></i> Your username and password didn't match. Please try again.
+    {% url 'blog' as home_url %}
+    <section class="h-full gradient-form bg-gray-100 md:h-screen">
+        <div class="container py-12 px-6 h-full ml-auto mr-auto">
+            <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-600">
+                <div class="xl:w-10/12">
+                    <div class="block bg-white shadow-lg rounded-lg">
+                        <div class="lg:flex lg:flex-wrap g-0">
+                            <div class="lg:w-6/12 px-4 md:px-0">
+                                <div class="md:p-12 md:mx-6">
+                                    <div class="text-center">
+                                        <h4 class="text-xl font-semibold mt-1 mb-12 pb-1">Welcome to the {{ SITE_NAME }}</h4>
+                                    </div>
+                                    <form action="{% url 'auth-login' %}" method="post" accept-charset="utf-8">
+                                        <p class="mb-4">Login to your account</p>
+                                        {% csrf_token %}
+                                        <input type="hidden" name="next" value="{{ next }}" />
+                                        <div class="mb-4">
+                                            {{ form.username|addclass:'form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-sm transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-emerald-600 focus:outline-hidden' }}
+                                        </div>
+                                        <div class="mb-4">
+                                            {{ form.password|addclass:'form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-sm transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-emerald-600 focus:outline-hidden' }}
+                                        </div>
+                                        {% if form.errors %}
+                                            <div class="mb-4 text-red-600">
+                                                <i class="las la-exclamation-triangle"></i> Your username and password didn't match. Please try again.
+                                            </div>
+                                        {% endif %}
+                                        <div class="text-center pt-1 mb-12 pb-1">
+                                            <input class="cursor-pointer bg-emerald-600 inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded-sm shadow-md hover:bg-emerald-700 hover:shadow-lg focus:shadow-lg focus:outline-hidden focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
+                                                   type="submit"
+                                                   value="Log in"
+                                                   name="login-button" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="bg-emerald-600 lg:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none">
+                                <div class="text-white px-4 py-6 md:p-12 md:mx-6">
+                                    <h4 class="text-xl font-semibold mb-6">More than a website: a community</h4>
+                                    <p class="text-sm">
+                                        The {{ SITE_NAME_LONG }} is a place to create circles within circles. Around what does your circle revolve? Come on in!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  {% endif %}
-                  <div class="text-center pt-1 mb-12 pb-1">
-                    <input
-                      class="cursor-pointer bg-emerald-600 inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded-sm shadow-md hover:bg-emerald-700 hover:shadow-lg focus:shadow-lg focus:outline-hidden focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
-                      type="submit"
-                      value="Log in"
-                      name="login-button"
-                    />
-                  </div>
-                </form>
-              </div>
+                </div>
             </div>
-            <div class="bg-emerald-600 lg:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none">
-              <div class="text-white px-4 py-6 md:p-12 md:mx-6">
-                <h4 class="text-xl font-semibold mb-6">More than a website: a community</h4>
-                <p class="text-sm">
-                  The {{ SITE_NAME_LONG }} is a place to create circles within circles. Around what does your circle revolve? Come on in!
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 {% endblock %}

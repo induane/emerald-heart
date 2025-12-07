@@ -1,0 +1,116 @@
+{% load static %}
+{% load emerald_filters %}
+<nav id="top-header-bar"
+     class="border-solid border-0 border-b border-slate-300 shadow-b-md">
+    <div class="mx-auto w-full pr-6">
+        <div class="flex items-center justify-between h-14">
+            <img src="{% static 'images/apple-icon-57x57.png' %}"
+                 height="57"
+                 width="57"
+                 alt="{{ SITE_NAME }}"
+                 class="opacity-80">
+            <div id="nav-menu-widescreen" class="hidden md:block">
+                <div class="flex items-center">
+                    {% for tab in SITE_TABS reversed %}
+                        <a href="{{ tab.link_url }}"
+                           title="{{ tab.tooltip }}"
+                           class="flex flex-row items-center truncate py-2 px-3 xl:px-2 lg:px-1 hover:underline {% if active_tab == tab.id %}font-bold text-emerald-600 font-bold{% else %}text-slate-700{% endif %}">{{ tab.display_name }}</a>
+                    {% endfor %}
+                    <div class="relative" id="nav-bar-user-dropdown-container">
+                        <button id="nav-bar-user-dropdown-button"
+                                class="flex flex-row items-center px-3 xl:px-2 lg:px-2 md:px-1 py-2 ml-3 xl:ml-2 lg:ml-1 text-sm font-medium rounded-md hover:text-white hover:bg-emerald-800 hover:shadow-lg focus:outline-hidden"
+                                _="on click toggle .hidden on #user-dropdown-menu then toggle .hidden on #user-dropdown-chevron-down then toggle .hidden on #user-dropdown-chevron-up">
+                            <i class="las la-user-circle" aria-hidden="true"></i>
+                            <span class="mx-2 xl:mx-1">
+                                {% if request.user.is_authenticated %}
+                                    {{ user.display_name }}
+                                {% else %}
+                                    User Menu
+                                {% endif %}
+                            </span>
+                            <span id="user-dropdown-chevron-down" aria-hidden="true"><i class="las la-chevron-down" aria-hidden="true"></i></span>
+                            <span id="user-dropdown-chevron-up" class="hidden" aria-hidden="true"><i class="las la-chevron-up" aria-hidden="true"></i></span>
+                        </button>
+                        <div id="user-dropdown-menu"
+                             role="menu"
+                             class="hidden absolute min-w-min bg-emerald-100 right-0 mt-2 origin-top-right rounded-md shadow-lg border border-solid border-slate-400">
+                            <div class="py-1 flex flex-col flex-end gap-1">
+                                {% if request.user.is_authenticated %}
+                                    <form method="post" action="{% url 'auth-logout' %}">
+                                        {% csrf_token %}
+                                        <button type="submit"
+                                                role="menuitem"
+                                                title="Sign-Out {{ user.tooltip }} {{ user.last_name }}"
+                                                class="whitespace-nowrap text-right px-4 py-2 hover:text-green-900 hover:underline">
+                                            Logout <i class="las la-sign-out-alt ml-1" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    {% if 'login' not in request.path %}
+                                        <a href="{% url 'auth-login' %}"
+                                           role="menuitem"
+                                           title="Click to Sign-In"
+                                           class="whitespace-nowrap text-right px-4 py-2 hover:text-emerald-600 hover:underline"><i class="las la-sign-in-alt ml-1" aria-hidden="true"></i> Login</a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex -mr-2 md:hidden">
+                <button id="mobile-nav-menu-toggle-button"
+                        class="pl-3 py-1 hover:text-emerald-600"
+                        _="on click toggle .hidden on #nav-menu-mobile then toggle .display-none on #nav-icon-open then toggle .display-none on #nav-icon-closed">
+                    <span id="nav-icon-open" class="inline-flex"><i class="las la-bars la-lg" aria-hidden="true"></i></span>
+                    <span id="nav-icon-closed" class="display-none inline-flex"><i class="las la-times la-lg" aria-hidden="true"></i></span>
+                </button>
+            </div>
+        </div>
+        {# Set aria-hidden to true for the mobile menu because a screen-reader doesn't need to see the same menu twice #}
+        <div id="nav-menu-mobile"
+             class="hidden md:hidden max-w-max mr-0 ml-auto text-2xl"
+             aria-hidden="true">
+            {% if SITE_TABS %}
+                <div class="text-right font-bold border-0 border-solid border-b border-slate-300">Site Navigation</div>
+                <div class="my-2 mx-auto w-full flex flex-col flex-end gap-1">
+                    {% for tab in SITE_TABS reversed %}
+                        <a href="{{ tab.link_url }}"
+                           title="{{ tab.tooltip }}"
+                           class="text-right rounded-md hover:bg-gray-100 px-3 py-1 {% if active_tab == tab.id %}font-bold text-emerald-600 font-bold{% else %}text-slate-700{% endif %}">
+                            <span class="ml-2">{{ tab.display_name }}
+                                {% if tab.icon %}<i class="las {{ tab.icon }} ml-1" aria-hidden="true"></i>{% endif %}
+                            </span>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {# endif SITE_TABS #}
+            <div class="pt-2 my-2 mx-auto w-full flex flex-col flex-end gap-1">
+                <div class="text-right font-bold border-0 border-solid border-b border-slate-300">
+                    {% if request.user.is_authenticated %}
+                        {{ user.display_name }}
+                    {% else %}
+                        User Actions
+                    {% endif %}
+                </div>
+                {% if request.user.is_authenticated %}
+                    <form method="post" action="{% url 'auth-logout' %}">
+                        {% csrf_token %}
+                        <button type="submit"
+                                title="Logout user: {{ user.display_name }}"
+                                class="text-right block ml-auto mr-0 rounded-md hover:bg-slate-100 hover:text-green-900 px-3 py-1 text-slate-700 w-full">
+                            Logout <i class="las la-sign-out-alt ml-1" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                {% else %}
+                    {% if 'login' not in request.path %}
+                        <a href="{% url 'auth-login' %}"
+                           title="Click to Sign-In"
+                           class="text-right rounded-md hover:bg-slate-100 hover:text-emerald-600 px-3 py-1 text-slate-700"><i class="las la-sign-in-alt ml-1" aria-hidden="true"></i> Login</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>

@@ -28,6 +28,7 @@ class EmeraldView(View):
 
     template_name: str = ""
     tab_id: str = ""
+    action_id: str = ""
     auth_required: bool = True
     required_groups: tuple[str, ...] | list[str] = ()
 
@@ -110,6 +111,19 @@ class EmeraldView(View):
         return [x["id"] for x in self.tabs]
 
     @property
+    def default_context(self) -> dict[str, Any]:
+        """Default context dictionary provided to templates."""
+        return {
+            "SITE_TABS": self.tabs,
+            "active_tab": self.tab_id,
+            "selected_action": self.action_id,
+            "user_groups": self.user_groups,
+            "auth_required": self.auth_required,
+            "show_search": False,
+            "action_list": self.actions,
+        }
+
+    @property
     def actions(self) -> list[dict[str, Any]]:
         """Return an iterable of all actions for the current tab."""
         LOG.debug("Processing actions for tab.")
@@ -119,13 +133,13 @@ class EmeraldView(View):
         else:
             return []
 
-    def redirect(self, url: str) -> HttpResponseRedirect:
+    def redirect(self, url: UrlType) -> HttpResponseRedirect:
         """Return a redirect to the given url."""
-        return HttpResponseRedirect(url)
+        return HttpResponseRedirect(str(url))
 
-    def hx_redirect(self, url: str) -> HttpResponseHXRedirect:
+    def hx_redirect(self, url: UrlType) -> HttpResponseHXRedirect:
         """Return a redirect to the given url with htmx headers."""
-        return HttpResponseHXRedirect(url)
+        return HttpResponseHXRedirect(str(url))
 
     def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         # Attach a few attributes to the view instance
@@ -135,7 +149,7 @@ class EmeraldView(View):
 
         # Stash a few lookup checks (they're added via middleware so type checking doesn't work)
         is_htmx: bool = request.is_htmx  # type:ignore
-        is_boosted: bool = request.is_boosted  # type:ignore
+        is_boosted: bool = request.hx_boosted  # type:ignore
         user = request.user  # type:ignore
 
         if not user.is_authenticated and self.auth_required is True:
@@ -210,10 +224,13 @@ class EmeraldView(View):
 
             return self.render_template("partials/form.html", my_context)
         """
+        default_context = self.default_context
         context_data = self.get_context_data(self._request, *self._request_args, **self._request_kwargs)
+        default_context.update(context_data)
         if context is not None:
-            context_data.update(context)
-        return self.render(context_data, template_name=template_name, content_type=content_type)
+            default_context.update(context)
+
+        return self.render(default_context, template_name=template_name, content_type=content_type)
 
     def render(
         self,
@@ -223,12 +240,14 @@ class EmeraldView(View):
         content_type: str | None = None,
     ) -> ResponseType:
         """Render the page, adding given context to default context."""
+        default_context = self.default_context
         context_data = self.get_context_data(self._request, *self._request_args, **self._request_kwargs)
+        default_context.update(context_data)
         if context is not None:
-            context_data.update(context)
+            default_context.update(context)
         return render_template(
             self._request,
             template_name or self.template_name,
-            context_data,
+            default_context,
             content_type=content_type,
         )

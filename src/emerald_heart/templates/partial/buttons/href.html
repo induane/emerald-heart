@@ -1,0 +1,9 @@
+{# A button that navigates without htmx #}
+<a href="{{ link_url }}"
+   hx-push-url="{{ link_url }}"
+   {% if title %}title="{{ title }}"{% else %}title="{{ link_url }}"{% endif %}
+   class="{% include 'partial/buttons/common-classes.html' %}{% if extra_classes %} {{ extra_classes }}{% endif %} inline-block"
+   {% if btn_id %}id="{{ btn_id }}"{% endif %}>
+    {% if la_icon %}<i class="{{ la_icon }} pr-0.5" aria-hidden="true"></i>{% endif %}
+    {{ button_text }}
+</a>

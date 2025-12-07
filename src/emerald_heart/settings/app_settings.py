@@ -18,8 +18,7 @@ LOGIN_TAB: SiteLayout = [
     {
         "display_name": "Logout",
         "id": "logout",
-        "la_icon": "la-sign-out-alt",
-        "icon": "las la-sign-out-alt",
+        "icon": "la-sign-out-alt",
         "tooltip": "Logout",
         "link_url": reverse_lazy("auth-logout"),
         "visible": [],
@@ -27,4 +26,14 @@ LOGIN_TAB: SiteLayout = [
     }
 ]
 
-SITE_DATA: SiteLayout = []
+SITE_DATA: SiteLayout = [
+    {
+        "display_name": "Profile",
+        "id": "user-profile",
+        "icon": "la-user-circle",
+        "tooltip": "User Profile",
+        "link_url": reverse_lazy("user-profile"),
+        "visible": [],
+        "actions": [],
+    }
+]

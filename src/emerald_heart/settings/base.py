@@ -34,6 +34,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 AUTH_USER_MODEL: str = "emerald_heart.User"
 
+LOGIN_URL = reverse_lazy("auth-login")
+LOGOUT_URL = reverse_lazy("auth-logout")
+LOGIN_REDIRECT_URL = reverse_lazy("home")
+LOGOUT_REDIRECT_URL = reverse_lazy("home")
 
 # Application definition
 

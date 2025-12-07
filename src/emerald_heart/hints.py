@@ -6,8 +6,8 @@ from boltons.ioutils import SpooledBytesIO
 from django.http import FileResponse, HttpResponse, HttpResponseRedirect
 from django.utils.functional import Promise
 
-RESPONSE_TYPES: TypeAlias = FileResponse | HttpResponseRedirect | HttpResponse
-URL_TYPES: TypeAlias = str | Promise
+ResponseType: TypeAlias = FileResponse | HttpResponseRedirect | HttpResponse
+UrlType: TypeAlias = str | Promise
 WritableFile: TypeAlias = BinaryIO | TextIO | SpooledBytesIO
 BinaryWritableFile: TypeAlias = BinaryIO | SpooledBytesIO
 
@@ -16,7 +16,7 @@ class SiteActionItem(TypedDict):
     name: str
     icon: str
     action_id: str
-    link_url: URL_TYPES
+    link_url: UrlType
     tooltip: str
     visible: list[str]
     actions: list["SiteActionItem"]
@@ -27,7 +27,7 @@ class SiteTab(TypedDict):
     icon: str
     id: str
     tooltip: str
-    link_url: URL_TYPES
+    link_url: UrlType
     visible: list[str]
     actions: list[SiteActionItem]
 

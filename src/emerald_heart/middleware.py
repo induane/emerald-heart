@@ -7,7 +7,7 @@ from typing import cast
 
 from django.http import HttpRequest
 
-from .hints import RESPONSE_TYPES
+from .hints import ResponseType
 
 # Cust object
 _appt_thread_local = local()
@@ -24,14 +24,14 @@ class MiddlewareBase:
     def __init__(self, get_response) -> None:
         self.get_response = get_response
 
-    def __call__(self, request: HttpRequest) -> RESPONSE_TYPES:
+    def __call__(self, request: HttpRequest) -> ResponseType:
         return self.get_response(request)
 
 
 class SimpleProfilingMiddleware(MiddlewareBase):
     """Middleware which logs the time taken to render a page."""
 
-    def __call__(self, request: HttpRequest) -> RESPONSE_TYPES:
+    def __call__(self, request: HttpRequest) -> ResponseType:
         start_time = time.time()
         response = self.get_response(request)
         LOG.info("%s took %.4f seconds: ", request.build_absolute_uri(), time.time() - start_time)
@@ -59,7 +59,7 @@ def unset_request():
 class RequestMiddleware(MiddlewareBase):
     """Stash the request where it can be retrieved as needed."""
 
-    def __call__(self, request: HttpRequest) -> RESPONSE_TYPES:
+    def __call__(self, request: HttpRequest) -> ResponseType:
         set_request(request)
         response = self.get_response(request)
         unset_request()
@@ -69,7 +69,7 @@ class RequestMiddleware(MiddlewareBase):
 class NoCacheMiddleware(MiddlewareBase):
     """Add no-cache headers to response to avoid client-side caching."""
 
-    def __call__(self, request: HttpRequest) -> RESPONSE_TYPES:
+    def __call__(self, request: HttpRequest) -> ResponseType:
         response = self.get_response(request)
         response["Pragma"] = "no-cache"
         response["Cache-Control"] = "no-cache, no-store, must-revalidate"
@@ -80,7 +80,7 @@ class NoCacheMiddleware(MiddlewareBase):
 class HtmxMiddleware(MiddlewareBase):
     """Add some htmx specific attributes to the request."""
 
-    def __call__(self, request) -> RESPONSE_TYPES:
+    def __call__(self, request) -> ResponseType:
         get_header = request.headers.get
 
         # Boolean values

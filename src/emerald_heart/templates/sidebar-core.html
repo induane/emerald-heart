@@ -1,0 +1,34 @@
+{% extends "core.html" %}
+{% block body %}
+
+<div class="h-full flex flex-row flex-nowrap">
+
+  <aside class="w-16 sm:w-64 border-solid border-r border-indigo-300 mt-3" aria-label="Sidebar">
+    <ul class="overflow-y-auto py-4 px-3 space-y-2">
+      {% for item in action_list %}
+        {% if item.item_type == 1 %}
+        {# TODO: HEADING SECTION HERE #}
+        {% else %}
+        <li{% if not item.no_hx %}
+          hx-get="{{ item.link_url }}"
+          hx-target="#main-content"
+          hx-select="#main-content"
+          hx-push-url="{{ item.link_url }}"{% endif %}
+          class="cursor-pointer"
+          title="{{ item.tooltip }}"
+        >{% if item.no_hx %}<a href="{{ item.link_url }}">{% endif %}
+          <span class="flex flex-row gap-2 items-center p-2 text-base font-normal {% if selected_action == item.action_id %}bg-fuchsia-50 border-solid border border-fuchsia-600{% endif %} rounded-lg hover:bg-slate-200">
+            <span><i class="{% if item.icon %}{{ item.icon }}{% else %}{{ item.la_icon }}{% endif %} mr-1" aria-hidden="true"></i> <span class="hidden sm:inline">{{ item.name }}</span></span>
+          </span>{% if item.no_hx %}</a>{% endif %}
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </aside>
+
+  {% block main %}
+  {% endblock %}
+
+</div>
+
+{% endblock %}

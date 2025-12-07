@@ -20,8 +20,37 @@ Including another URLconf
 from __future__ import annotations
 
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path
+from django.views.decorators.cache import cache_page
+from django.views.generic.base import TemplateView
+
+from emerald_heart.sitemap import sitemap_data
+from emerald_heart.views import EmeraldLogout
+from emerald_heart.views.auth.login_form import EmeraldAuthForm
 
 urlpatterns = [
+    path(
+        "robots.txt",
+        cache_page(86_400)(TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),  # Cache 1 day
+        name="robots-txt",
+    ),
+    path(
+        "ai.txt",
+        cache_page(86_400)(TemplateView.as_view(template_name="ai.txt", content_type="text/plain")),  # Cache 1 day
+        name="ai-txt",
+    ),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemap_data}, name="django.contrib.sitemaps.views.sitemap"),
+    path(
+        "auth/login/",
+        auth_views.LoginView.as_view(
+            template_name="login.html",
+            extra_context={"hide_header_bar": True},
+            authentication_form=EmeraldAuthForm,
+        ),
+        name="auth-login",
+    ),
+    path("auth/logout/", EmeraldLogout.as_view(), name="auth-logout"),
     path("admin/", admin.site.urls),
 ]

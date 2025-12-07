@@ -1,6 +1,6 @@
 @import "tailwindcss" source(none);
 @import "./line-awesome.css";
-@import "./reset.css";
+@import "./overrides.css";
 
 @source "../../templates/*.html";
 @source "../../templates/**/*.html";

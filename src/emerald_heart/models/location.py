@@ -21,6 +21,13 @@ class Location(models.Model, BaseMixin):
     created = models.DateTimeField(auto_now_add=True)
     location = gis_models.PointField(unique=True, geography=False, srid=3857)
     modified = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(
+        "emerald_heart.User",
+        blank=False,
+        null=False,
+        on_delete=models.CASCADE,
+        related_name="location_set",
+    )
 
     @property
     def display_name(self) -> str:

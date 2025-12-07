@@ -1,15 +1,19 @@
 include .Makefile.in
 
-.PHONY: check-types
-check-types:  ## Run the ty typechecker
-	@uvx ty check --exclude=**/utils/image.py
+node: ## Install node packages
+	$(NODE_INSTALL)
+
+.PHONY: js
+js: node  ## Build or rebuild emerald.min.js bundle
+	- @rm -f $(MAKEFILE_DIR)/static/js/emerald.min.js
+	- npx terser $(JAVASCRIPT_FILES) --mangle --validate --toplevel --safari10 --compress --output $(MAKEFILE_DIR)/src/emerald_heart/static/js/emerald.min.js --source-map "url='emerald.min.js.map',root='/static/js',base='static/js'"
 
 .PHONY: css
-css: node_modules  ## Generate output.css file
+css: node  ## Generate output.css file
 	- npx tailwindcss --minify --input $(MAKEFILE_DIR)/src/emerald_heart/static/css/input.css --output $(MAKEFILE_DIR)/src/emerald_heart/static/css/emerald.min.css
 
 .PHONY: css
-watch-css: node_modules  ## Watch for changes to templates and rebuild CSS output as necessary
+watch-css: node  ## Watch for changes to templates and rebuild CSS output as necessary
 	npx tailwindcss --minify --watch --input $(MAKEFILE_DIR)/src/emerald_heart/static/css/input.css --output $(MAKEFILE_DIR)/src/emerald_heart/static/css/emerald.min.css
 
 .PHONY: generate-logos
@@ -21,9 +25,6 @@ generate-logos:  ## Generate or regenerate logo files of various sizes
 	- @find resources -name 'apple*' -delete
 	- @find resources -name 'favicon*' -delete
 	- @find resources -name 'ms-icon*' -delete
-
-node: $(NODE_DIR)  ## Install node packages
-	$(NODE_INSTALL)
 
 .PHONY: unittests
 unittests:  ## Run the projects unittest suite
@@ -37,6 +38,10 @@ migrate:  # Run the database migrations
 migrations:  # Generate database migrations
 	$(WITH_CONTEXT) uv run django-admin makemigrations
 
+.PHONY: check-types
+check-types:  ## Run the ty typechecker
+	uv run --group dev ty check --exclude=**/utils/image.py
+
 .PHONY: format-code
 format-code:  # Run the ruff code formatter
 	@$(IN_ENV) ruff format $(MAKEFILE_DIR)/src/ $(MAKEFILE_DIR)/tests/ $(MAKEFILE_DIR)/resources/generate_images.py
@@ -45,11 +50,6 @@ format-code:  # Run the ruff code formatter
 .PHONY: check-code
 check-code:  ## Check the code for linter errors
 	$(IN_ENV) ruff check $(MAKEFILE_DIR)/src/ $(MAKEFILE_DIR)/tests/ $(MAKEFILE_DIR)/resources/generate_images.py
-
-.PHONY: js
-js:  ## Build or rebuild emerald.min.js bundle
-	- @rm -f $(MAKEFILE_DIR)/static/js/emerald.min.js
-	- npx terser $(JAVASCRIPT_FILES) --mangle --validate --toplevel --safari10 --compress --output $(MAKEFILE_DIR)/src/emerald_heart/static/js/emerald.min.js --source-map "url='emerald.min.js.map',root='/static/js',base='static/js'"
 
 .PHONY: shell
 shell:  ## Open an interactive Python shell in the projects context
@@ -60,9 +60,18 @@ qs:  ## Launch a local runserver without running migrations or loading fixtures
 	$(WITH_CONTEXT) uv run django-admin runserver --verbosity 3 $(IP):$(PORT)
 
 .PHONY: serve
-serve:  ## Launch a local runserver
+serve: migrate loaddata  ## Launch a local runserver
 	#
 	$(WITH_CONTEXT) uv run django-admin runserver --verbosity 3 $(IP):$(PORT)
+
+.PHONY: dump-auth
+dump-auth:  ## Update the auth fixture
+	@rm -rf $(MAKEFILE_DIR)/src/emerald_heart/fixtures/auth.json
+	$(WITH_CONTEXT) uv run django-admin dumpdata auth.Group emerald_heart.User --indent=4 > $(MAKEFILE_DIR)/src/emerald_heart/fixtures/auth.json
+
+.PHONY: loaddata
+loaddata:  ## Load fixture data into the database
+	$(WITH_CONTEXT) uv run django-admin loaddata $(FIXTURE_FILES)
 
 .PHONY: clean
 clean:  ## Cleanup project workspace

@@ -19,6 +19,7 @@ class User(AbstractUser, BaseMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, db_index=True)
     name = models.CharField(max_length=2048, blank=False, null=False, db_index=True)
     is_active = models.BooleanField(default=True)
+    bio = models.TextField(blank=False, null=False)
 
     @property
     def group_list(self) -> list[str]:

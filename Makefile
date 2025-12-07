@@ -73,6 +73,10 @@ dump-auth:  ## Update the auth fixture
 loaddata:  ## Load fixture data into the database
 	$(WITH_CONTEXT) uv run django-admin loaddata $(FIXTURE_FILES)
 
+.PHONY: freeze
+freeze:  ## List packages installed in the virtual environment
+	@uv pip freeze --color auto
+
 .PHONY: clean
 clean:  ## Cleanup project workspace
 	- @git clean -dfX >> /dev/null 2>&1

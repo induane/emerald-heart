@@ -1,0 +1,42 @@
+{% extends 'core.html' %}
+{# Unlike form.html this is an old-school form without htmx #}
+{% block head_scripts %}
+    {{ form.media }}
+{% endblock head_scripts %}
+{% block body %}
+    <main class="px-5 py-3 w-full max-w-(--breakpoint-md)">
+        {% if column_1_name %}
+            <h1 class="text-slate-700 text-base pb-2 md:text-lg lg:text-lg 2xl:text-2xl mb-2 font-bold border-solid border-b border-slate-200"
+                id="column-1-header">{{ column_1_name }}</h1>
+        {% endif %}
+        {% load emerald_filters %}
+        <form method="post"
+              enctype="multipart/form-data"
+              action="{% if post_url %}{{ post_url }}{% else %}{{ request.path }}{% endif %}">
+            {% csrf_token %}
+            {# Toss in all the hidden fields; they will exist but won't be displayed #}
+            {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+            {% for field in form.visible_fields %}
+                <div class="form-group mb-6" title="{{ field.widget_type }}">
+                    {{ field.label_tag|addclass:'form-label inline-block mb-2 text-gray-700' }}
+                    {% if field.widget_type == 'checkbox' %}
+                        {{ field|addclass:'ml-1' }}
+                    {% elif field.widget_type == 'checkboxselectmultiple' %}
+                        {{ field|addclass:'ml-1' }}
+                    {% elif field.widget_type == 'selectmultiple' %}
+                        {{ field|addclass:'multiselect-choices form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-sm transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-fuchsia-600 focus:outline-hidden disabled:opacity-50' }}
+                    {% else %}
+                        {{ field|addclass:'form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-sm transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-fuchsia-600 focus:outline-hidden disabled:opacity-50' }}
+                    {% endif %}
+                    {% if field.errors %}<div class="w-full text-red-800 text-sm">{{ field.errors.as_text }}</div>{% endif %}
+                </div>
+            {% endfor %}
+            {% block form_extras %}{% endblock %}
+            <br>
+            {% include 'partial/buttons/submit.html' with button_text=submit_text|default:'Save' button_type='submit' la_icon=submit_icon|default:'las la-save' %}
+            {% if cancel_url %}
+                {% include 'partial/buttons/link.html' with button_text='Cancel' link_url=cancel_url la_icon='las la-ban' %}
+            {% endif %}
+        </form>
+    </main>
+{% endblock %}

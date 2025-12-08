@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import logging
+from typing import cast
 
 from django import forms
 from django.http import HttpRequest
 
 from emerald_heart.middleware import get_request
+from emerald_heart.models import User
 
 LOG = logging.getLogger(__name__)
 
@@ -38,5 +40,5 @@ class ModelFormBase(forms.ModelForm):
         return get_request()
 
     @property
-    def user(self):
-        return self.request.user
+    def user(self) -> User:
+        return cast(User, self.request.user)  # type: ignore

@@ -23,7 +23,7 @@
     {% endfor %}
     {% block form_extras %}{% endblock %}
     <br>
-    {% include 'partial/buttons/link.html' with button_text=submit_text|default:'Save' button_type='submit' la_icon=submit_icon|default:'las la-save' %}
+    {% include 'partial/buttons/submit.html' with button_text=submit_text|default:'Save' button_type='submit' la_icon=submit_icon|default:'las la-save' %}
     {% if cancel_url %}
         {% include 'partial/buttons/link.html' with button_text='Cancel' link_url=cancel_url la_icon='las la-ban' %}
     {% endif %}

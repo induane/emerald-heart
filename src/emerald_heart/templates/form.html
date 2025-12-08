@@ -1,4 +1,7 @@
 {% extends 'core.html' %}
+{% block head_scripts %}
+    {{ form.media }}
+{% endblock head_scripts %}
 {% block body %}
     <main class="px-5 py-3 w-full max-w-(--breakpoint-md)">
         {% if column_1_name %}

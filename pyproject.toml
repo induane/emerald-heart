@@ -31,7 +31,6 @@ dependencies = [
 dev = [
     "ruff>=0.14.8",
     "types-boltons~=25.0",
-    "django-types",
     "ty",
     "types-docutils~=0.21",
     "djlint>=1.36.4",
@@ -119,6 +118,7 @@ required-imports = ["from __future__ import annotations"]
 "**/settings/*.py" = ["F405"]
 "**/hints.py" = ["D101"]
 "**/migrations/*.py" = ["E501", "D101"]
+"**/emerald_heart/admin.py" = ["D101"]
 
 [[tool.ty.overrides]]
 exclude = ["**/utils/image.py"]

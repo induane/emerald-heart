@@ -23,6 +23,7 @@ class UserProfile(EmeraldView):
                 "user": self.user,
                 "change_password_link": "#",
                 "edit_profile_link": self.reverse("user-profile-edit"),
+                "add_location_link": self.reverse("user-location-create"),
             }
         )
 

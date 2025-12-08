@@ -25,3 +25,9 @@ form {
 .display-none {
     display: none;
 }
+
+/* GIS MAPS */
+.dj_map {
+    width: 600px;
+    height: 400px;
+}

@@ -28,7 +28,7 @@ from django.views.generic import RedirectView
 from django.views.generic.base import TemplateView
 
 from emerald_heart.sitemap import sitemap_data
-from emerald_heart.views import EditProfile, EmeraldLogout, UserProfile
+from emerald_heart.views import CreateLocation, EditProfile, EmeraldLogout, UserProfile
 from emerald_heart.views.auth.login_form import EmeraldAuthForm
 
 urlpatterns = [
@@ -58,6 +58,7 @@ urlpatterns = [
         name="auth-login",
     ),
     path("auth/logout/", EmeraldLogout.as_view(), name="auth-logout"),
+    path("user/profile/location/create", CreateLocation.as_view(), name="user-location-create"),
     path("user/profile/edit", EditProfile.as_view(), name="user-profile-edit"),
     path("user/profile", UserProfile.as_view(), name="user-profile"),
     path("admin/", admin.site.urls),

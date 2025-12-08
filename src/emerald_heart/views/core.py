@@ -203,6 +203,7 @@ class EmeraldView(View):
                     self.__class__,
                     request.method.lower(),
                 )
+                return super().dispatch(request, *args, **kwargs)
             else:
                 return htmx_method(request, *args, **kwargs)
 

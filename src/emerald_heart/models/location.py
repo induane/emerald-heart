@@ -17,7 +17,7 @@ class Location(models.Model, BaseMixin):
     """A generic GIS single-point location."""
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, db_index=True)
-
+    name = models.CharField(blank=False, null=False)
     created = models.DateTimeField(auto_now_add=True)
     location = gis_models.PointField(unique=True, geography=False, srid=3857)
     modified = models.DateTimeField(auto_now=True)

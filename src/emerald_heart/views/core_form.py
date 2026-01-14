@@ -42,3 +42,28 @@ class ModelFormBase(forms.ModelForm):
     @property
     def user(self) -> User:
         return cast(User, self.request.user)  # type: ignore
+
+
+class FormBase(forms.Form):
+    """Base class for unbound forms."""
+
+    required_css_class = "form-required"
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+
+        if _meta := getattr(self, "Meta", None):
+            for field in getattr(_meta, "required", ()):
+                self.fields[field].required = True
+
+            for field in getattr(_meta, "not_required", ()):
+                self.fields[field].required = False
+
+    @property
+    def request(self) -> HttpRequest:
+        """Return the current request from thread local."""
+        return get_request()
+
+    @property
+    def user(self) -> User:
+        return cast(User, self.request.user)  # type: ignore

@@ -1,0 +1,47 @@
+{% extends "core.html" %}
+{% load static %}
+{% block head-extra %}{{ form.media }}{% endblock %}
+{% block body %}
+    <main class="px-5 py-3 w-full max-w-(--breakpoint-lg)">
+        {% include 'partial/form.html' %}
+        {% if not member_list and not initial %}<hr class="border-gray-700">{% endif %}
+        <div class="card-container">
+            {% for user in member_list %}
+                <div id="main-session-list-{{ forloop.counter }}" class="card">
+                    <!-- image -->
+                    <div class="img-container">
+                        {% if user.image %}
+                            {{ user.image.thumbnail_tag }}
+                        {% else %}
+                            <i class="fa fa-user-circle no-image"></i>
+                        {% endif %}
+                        <span class="card-name">
+                            {{ user.displayname }}
+                            <br />
+                            {# {% if user.twitter %}<a target="_blank" href="{{ user.twitter }}"><i class="fa fa-twitter-square"></i></a>{% endif %} #}
+                            {# {% if user.facebook %}<a target="_blank" href="{{ user.facebook }}"><i class="fa fa-facebook-square"></i></a>{% endif %} #}
+                            {# {% if user.linkedin %}<a target="_blank" href="{{ user.linkedin }}"><i class="fa fa-linkedin-square"></i></a>{% endif %} #}
+                        </span>
+                    </div>
+                    {#  <div class="button-container"> #}
+                    {#  <button #}
+                    {#  hx-get="{% url 'player-coach-view' id=user.id %}" #}
+                    {#  hx-target="body" #}
+                    {#  hx-push-url="{% url 'player-coach-view' id=user.id %}" #}
+                    {#  hx-swap="innerHTML" #}
+                    {#  ><i class="fa fa-id-card"></i> View Profile</button> #}
+                    {#  </div> #}
+                </div>
+            {% endfor %}
+        </div>
+        {% if not member_list and not initial %}
+            <div>
+                <span title="No members">
+                    <i class="fa fa-exclamation" aria-hidden="true"></i>
+                    Info:
+                </span>
+                <span>No members matched your search results.</span>
+            </div>
+        {% endif %}
+    </main>
+{% endblock body %}

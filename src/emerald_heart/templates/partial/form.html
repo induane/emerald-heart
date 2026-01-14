@@ -15,6 +15,8 @@
                 {{ field|addclass:'ml-1' }}
             {% elif field.widget_type == 'selectmultiple' %}
                 {{ field|addclass:'multiselect-choices form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-sm transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-hidden disabled:opacity-50' }}
+            {% elif field.widget_type == 'select' %}
+                {{ field|addclass:'block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-sm transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-hidden disabled:opacity-50' }}
             {% else %}
                 {{ field|addclass:'form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-sm transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-hidden disabled:opacity-50' }}
             {% endif %}

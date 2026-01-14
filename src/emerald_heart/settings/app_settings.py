@@ -28,6 +28,15 @@ LOGIN_TAB: SiteLayout = [
 
 SITE_DATA: SiteLayout = [
     {
+        "display_name": "Search",
+        "id": "user-profile",
+        "icon": "la-search-location",
+        "tooltip": "Search for members by distance",
+        "link_url": reverse_lazy("member-search"),
+        "visible": [],
+        "actions": [],
+    },
+    {
         "display_name": "Profile",
         "id": "user-profile",
         "icon": "la-user-circle",
@@ -35,5 +44,5 @@ SITE_DATA: SiteLayout = [
         "link_url": reverse_lazy("user-profile"),
         "visible": [],
         "actions": [],
-    }
+    },
 ]

@@ -30,6 +30,7 @@ from django.views.generic.base import TemplateView
 from emerald_heart.sitemap import sitemap_data
 from emerald_heart.views import CreateLocation, EditProfile, EmeraldLogout, UserProfile
 from emerald_heart.views.auth.login_form import EmeraldAuthForm
+from emerald_heart.views.search.search import MemberSearch
 
 urlpatterns = [
     path(
@@ -61,5 +62,6 @@ urlpatterns = [
     path("user/profile/location/create", CreateLocation.as_view(), name="user-location-create"),
     path("user/profile/edit", EditProfile.as_view(), name="user-profile-edit"),
     path("user/profile", UserProfile.as_view(), name="user-profile"),
+    path("search", MemberSearch.as_view(), name="member-search"),
     path("admin/", admin.site.urls),
 ]

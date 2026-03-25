@@ -19,10 +19,10 @@
                                         {% csrf_token %}
                                         <input type="hidden" name="next" value="{{ next }}" />
                                         <div class="mb-4">
-                                            {{ form.username|addclass:'form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-sm transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-emerald-600 focus:outline-hidden' }}
+                                            {{ form.username|addclass:'form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-sm transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-700 focus:outline-hidden' }}
                                         </div>
                                         <div class="mb-4">
-                                            {{ form.password|addclass:'form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-sm transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-emerald-600 focus:outline-hidden' }}
+                                            {{ form.password|addclass:'form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-sm transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-700 focus:outline-hidden' }}
                                         </div>
                                         {% if form.errors %}
                                             <div class="mb-4 text-red-600">
@@ -30,7 +30,7 @@
                                             </div>
                                         {% endif %}
                                         <div class="text-center pt-1 mb-12 pb-1">
-                                            <input class="cursor-pointer bg-emerald-600 inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded-sm shadow-md hover:bg-emerald-700 hover:shadow-lg focus:shadow-lg focus:outline-hidden focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
+                                            <input class="cursor-pointer bg-green-700 inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded-sm shadow-md hover:bg-green-800 hover:shadow-lg focus:shadow-lg focus:outline-hidden focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
                                                    type="submit"
                                                    value="Log in"
                                                    name="login-button" />
@@ -38,7 +38,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="bg-emerald-600 lg:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none">
+                            <div class="bg-green-800 lg:w-6/12 flex items-center lg:rounded-r-lg rounded-b-lg lg:rounded-bl-none">
                                 <div class="text-white px-4 py-6 md:p-12 md:mx-6">
                                     <h4 class="text-xl font-semibold mb-6">More than a website: a community</h4>
                                     <p class="text-sm">

@@ -29,7 +29,7 @@ LOGIN_TAB: SiteLayout = [
 SITE_DATA: SiteLayout = [
     {
         "display_name": "Search",
-        "id": "user-profile",
+        "id": "search",
         "icon": "la-search-location",
         "tooltip": "Search for members by distance",
         "link_url": reverse_lazy("member-search"),

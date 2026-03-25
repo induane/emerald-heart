@@ -7,42 +7,42 @@
                 {% include 'partial/buttons/link.html' with button_text='Edit Profile' link_url=edit_profile_link la_icon='las la-edit' extra_classes='flex-auto' %}
                 {% include 'partial/buttons/href.html' with button_text='Add Location' link_url=add_location_link la_icon='las la-map-marked' extra_classes='flex-auto' %}
             </div>
-            <div class="border-solid border-b border-t-4 border-emerald-500 text-emerald-700 px-4 py-3">
+            <div class="border-solid border-b border-t-4 border-green-700 text-green-700 px-4 py-3">
                 <div class="text-gray-700">
                     <div class="grid md:grid-cols-2 text-sm">
                         <div class="grid grid-cols-2">
-                            <div class="px-4 py-2 font-semibold hover:text-emerald-800">First Name</div>
+                            <div class="px-4 py-2 font-semibold hover:text-green-800">First Name</div>
                             <div class="px-4 py-2">{{ user.first_name }}</div>
                         </div>
                         <div class="grid grid-cols-2">
-                            <div class="px-4 py-2 font-semibold hover:text-emerald-800">Last Name</div>
+                            <div class="px-4 py-2 font-semibold hover:text-green-800">Last Name</div>
                             <div class="px-4 py-2">{{ user.last_name }}</div>
                         </div>
                         <div class="grid grid-cols-2">
-                            <div class="px-4 py-2 font-semibold hover:text-emerald-800">Username</div>
+                            <div class="px-4 py-2 font-semibold hover:text-green-800">Username</div>
                             <div class="px-4 py-2">{{ user.username }}</div>
                         </div>
                         <div class="grid grid-cols-2">
-                            <div class="px-4 py-2 font-semibold hover:text-emerald-800">Email</div>
+                            <div class="px-4 py-2 font-semibold hover:text-green-800">Email</div>
                             <div class="px-4 py-2">
                                 {% if user.email %}
-                                    <a class="text-emerald-800" href="mailto:{{ user.email }}">{{ user.email }}</a>
+                                    <a class="text-green-800" href="mailto:{{ user.email }}">{{ user.email }}</a>
                                 {% else %}
                                     (not set)
                                 {% endif %}
                             </div>
                         </div>
                         <div class="grid grid-cols-2">
-                            <div class="px-4 py-2 font-semibold hover:text-emerald-800">Joined</div>
+                            <div class="px-4 py-2 font-semibold hover:text-green-800">Joined</div>
                             <div class="px-4 py-2">{{ user.date_joined|date }}</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--<div class="mt-4 p-3 border-solid border-b border-t-4 border-emerald-500 text-emerald-700 px-4 py-3">
+            <!--<div class="mt-4 p-3 border-solid border-b border-t-4 border-green-700 text-green-700 px-4 py-3">
                 <div class="grid grid-cols-2">
                     <div>
-                        <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3 hover:text-emerald-800">
+                        <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3 hover:text-green-800">
                             <i class="las la-book" aria-hidden="true"></i>
                             <span class="tracking-wide">Circles</span>
                         </div>
@@ -59,16 +59,16 @@
                     </div>
                 </div>
             </div>-->
-            <div class="mt-4 p-3 border-solid border-b border-t-4 border-emerald-500 text-emerald-700 px-4 py-3">
+            <div class="mt-4 p-3 border-solid border-b border-t-4 border-green-700 text-green-700 px-4 py-3">
                 <div class="grid grid-cols-2">
                     <div>
-                        <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3 hover:text-emerald-800">
+                        <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3 hover:text-green-800">
                             <i class="las la-book" aria-hidden="true"></i>
                             <span class="tracking-wide">Locations</span>
                         </div>
                         <div class="grid grid-cols-2">
                             {% for location in user.location_set.all %}
-                                <div class="px-4 py-2 font-semibold hover:text-emerald-800 cursor-pointer"
+                                <div class="px-4 py-2 font-semibold hover:text-green-800 cursor-pointer"
                                      title="{{ location.display_name }}">{{ location.name }}</div>
                             {% endfor %}
                         </div>

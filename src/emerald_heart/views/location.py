@@ -23,13 +23,18 @@ class LocationData(EmeraldView):
                 lat = float(latitude)
             except Exception:
                 return self.render({})
+        else:
+            lat = 0.0  # Not really necessary but helps the type checker
 
         longitude = request.POST.get("longitude", None)
         if longitude:
             try:
                 lon = float(longitude)
             except Exception:
+                lon = 0.0
                 return self.render({})
+        else:
+            lon = 0.0  # Not really necessary but helps the type checker
 
         try:
             point = Point(lon, lat, srid=3857)

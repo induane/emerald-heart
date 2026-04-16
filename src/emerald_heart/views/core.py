@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 from functools import cached_property
-from typing import Any, Sequence
+from typing import Any, Sequence, cast
 from urllib.parse import urlparse, urlunparse
 
 from django.conf import settings
@@ -73,7 +73,7 @@ class EmeraldView(View):
     @cached_property
     def user(self) -> User | AnonymousUser:
         """Try to retrieve the user."""
-        return self._request.user
+        return cast(User | AnonymousUser, self._request.user)
 
     @cached_property
     def user_groups(self) -> set[str]:
@@ -203,12 +203,12 @@ class EmeraldView(View):
                     self.__class__,
                     request.method.lower(),
                 )
-                return super().dispatch(request, *args, **kwargs)
+                return cast(HttpResponse, super().dispatch(request, *args, **kwargs))
             else:
                 return htmx_method(request, *args, **kwargs)
 
         # Either the request wasn't an HTMX request or it was a boosted link, use normal dispatch.
-        return super().dispatch(request, *args, **kwargs)
+        return cast(HttpResponse, super().dispatch(request, *args, **kwargs))
 
     def render_template(
         self,

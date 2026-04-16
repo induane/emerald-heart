@@ -31,5 +31,5 @@ particularly on cellular connections.
 
 This package is quite conservative in many ways; it attempts to be easily managed and developed by a single individual 
 if necessary. There is no react/vue/angular/aurelia/<insert-latest-framework-here> and all interaction is done via
-``_hyperscript`` and ``htmx``. This preserves locality of behavior and allows a single developer to stay sane while
+``_HyperScript`` and ``HTMX``. This preserves locality of behavior and allows a single developer to stay sane while
 managing the complexity of the entire stack.

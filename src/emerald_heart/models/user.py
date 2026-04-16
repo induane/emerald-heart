@@ -693,7 +693,7 @@ class User(AbstractUser, BaseMixin):
         other way around. Version 1.0 of EPSG:4326 specifies (latitude, longitude) which really can be confusing.
         GeoDjango PointFields corespond to the 1.1 spec and hence our coordinate value follows this as well.
         """
-        return Coordinate(self.location.x, self.location.y)
+        return Coordinate(self.current_location.x, self.current_location.y)
 
     @property
     def group_list(self) -> list[str]:

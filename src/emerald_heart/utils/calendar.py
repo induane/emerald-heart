@@ -3,13 +3,9 @@ from __future__ import annotations
 
 import logging
 import time
+import zoneinfo
 from collections import defaultdict
 from datetime import UTC, datetime
-
-try:
-    import zoneinfo
-except ImportError:
-    from backports import zoneinfo
 
 LOG = logging.getLogger(__name__)
 
@@ -19,7 +15,7 @@ ZoneInfo = zoneinfo.ZoneInfo
 
 def get_server_tz() -> ZoneInfo:
     """Return the server time as a timezone aware datetime value."""
-    u = datetime.utcnow()
+    u = datetime.now(UTC)
     keymap = defaultdict(list)
     for zone in zoneinfo.available_timezones():
         tz = ZoneInfo(zone)

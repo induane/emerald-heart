@@ -34,3 +34,4 @@ urllib*.gz
 yarn-error.log
 yarn.lock
 **/_version.py
+package-lock.json

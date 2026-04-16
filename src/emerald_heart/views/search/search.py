@@ -55,7 +55,6 @@ class ViewMember(EmeraldView):
 
     auth_required = True
     tab_id = "search"
-    # TEMPLATE_NAME = "player/coach-profile.html"
 
     def get(self, request, id, *args, **kwargs) -> ResponseType:
         return self.render({"member": get_member_by_id(id)})

@@ -45,3 +45,39 @@
         {% endif %}
     </main>
 {% endblock body %}
+{% block extra-scripts %}
+    {% if REQUEST_LOCATION %}
+        <form id="location-form-ephemeral"
+              class="hidden"
+              hx-post="{% url 'set-location' %}"
+              hx-trigger="locationset"
+              class="none"
+              hx-swap="outerHTML">
+            <input type="text" name="latitude" id="location-form-latitude">
+            <input type="text" name="longitude" id="location-form-longitude">
+        </form>
+        <script>
+document.addEventListener('DOMContentLoaded', (event) => {
+
+  var lat_input = document.getElementById("location-form-latitude");
+  var lon_input = document.getElementById("location-form-longitude");
+  var form = document.getElementById("location-form-ephemeral");
+  const newEvent = new Event("locationset");
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
+      lat_input.value = lat;
+      lon_input.value = lng;
+      console.log("Set " + lat_input.value + ", " + lon_input.value);
+      form.dispatchEvent(newEvent);
+    }, function(error) {
+      showErr();
+    });
+  }
+
+})
+        </script>
+    {% endif %}
+{% endblock extra-scripts %}

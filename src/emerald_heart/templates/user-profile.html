@@ -68,8 +68,14 @@
                         </div>
                         <div class="grid grid-cols-2 gap-1">
                             {% for location in user.location_set.all %}
-                                <div class="bg-green-700 rounded-lg text-white text-sm self-center px-6 py-2.5 font-medium text-center leading-tight"
-                                     title="{{ location.name }}">{{ location.name }}<i class="las la-times-circle pl-2 text-gray-200 hover:text-white hover:drop-shadow-2xl cursor-pointer align-text-top " role="button" title="Delete this location"> </i></div>
+                                <div id="location-{{ location.id }}"
+                                     class="bg-green-700 rounded-lg text-white text-sm self-center px-6 py-2.5 font-medium text-center leading-tight"
+                                     title="{{ location.name }}">{{ location.name }}<i class="las la-trash pl-2 text-gray-200 hover:text-white hover:drop-shadow-2xl cursor-pointer align-text-top "
+                                       role="button"
+                                       hx-confirm="Are you sure you want to delete '{{ location.name }}'?"
+                                       hx-delete="{% url 'user-location-delete' uuid=location.id %}"
+                                       title="Delete this location"></i>
+                                </div>
                             {% endfor %}
                         </div>
                     </div>

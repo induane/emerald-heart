@@ -29,11 +29,12 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "ruff>=0.14.8",
-    "types-boltons~=25.0",
     "ty",
-    "types-docutils~=0.21",
+    "ruff>=0.14.8",
+    "django-stubs",
     "djlint>=1.36.4",
+    "types-boltons~=25.0",
+    "types-docutils~=0.21",
 ]
 
 [tool.setuptools]

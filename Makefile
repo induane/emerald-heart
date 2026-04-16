@@ -53,12 +53,12 @@ format-html: ## Run the template formatter
 
 .PHONY: format-code
 format-code:  # Run the ruff code formatter
-	@$(IN_ENV) ruff format $(MAKEFILE_DIR)/src/ $(MAKEFILE_DIR)/tests/ $(MAKEFILE_DIR)/resources/generate_images.py
-	@$(IN_ENV) ruff check --fix $(MAKEFILE_DIR)/src/ $(MAKEFILE_DIR)/tests/ $(MAKEFILE_DIR)/resources/generate_images.py
+	@uv run --group dev  ruff format $(MAKEFILE_DIR)/src/ $(MAKEFILE_DIR)/tests/ $(MAKEFILE_DIR)/resources/generate_images.py
+	@uv run --group dev  ruff check --fix $(MAKEFILE_DIR)/src/ $(MAKEFILE_DIR)/tests/ $(MAKEFILE_DIR)/resources/generate_images.py
 
 .PHONY: check-code
 check-code:  ## Check the code for linter errors
-	$(IN_ENV) ruff check $(MAKEFILE_DIR)/src/ $(MAKEFILE_DIR)/tests/ $(MAKEFILE_DIR)/resources/generate_images.py
+	@uv run --group dev ruff check $(MAKEFILE_DIR)/src/ $(MAKEFILE_DIR)/tests/ $(MAKEFILE_DIR)/resources/generate_images.py
 
 .PHONY: shell
 shell:  ## Open an interactive Python shell in the projects context

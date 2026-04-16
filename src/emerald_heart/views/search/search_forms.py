@@ -23,6 +23,7 @@ def get_initial_date():
 class SearchForm(FormBase):
     """Custom search form with distance selector."""
 
+    location = forms.ChoiceField(choices=((0, "Current Location"),))
     distance = forms.ChoiceField(
         choices=(
             (5, "5 Miles"),
@@ -36,10 +37,16 @@ class SearchForm(FormBase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        choices = [
+            (0, "Current Location"),
+        ]
+        for location in self.user.location_set.all():
+            choices.append((location.id, location.name))
+        self.fields["location"].choices = choices
 
     def clean(self) -> dict[str, Any]:
         """Extra form cleaning."""
-        data = super().clean()
+        data = super().clean() or {}
         try:
             data["distance"] = int(data.get("distance", 100))
         except (TypeError, ValueError):

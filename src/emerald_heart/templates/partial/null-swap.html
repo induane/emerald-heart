@@ -1,0 +1,3 @@
+{# Simple out of band htmx swap mechanism for targeting multiple items #}
+<span class="none"></span>
+{% for id in oob_list %}<span id="{{ id }}" hx-swap-oob="true" class="none"></span>{% endfor %}

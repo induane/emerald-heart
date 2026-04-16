@@ -14,9 +14,6 @@ _appt_thread_local = local()
 
 LOG = logging.getLogger(__name__)
 
-FLOAT_CHARS = "0123456789."
-"""Valid characters in a floating point string."""
-
 
 class MiddlewareBase:
     """Simple generic base class for custom middleware."""

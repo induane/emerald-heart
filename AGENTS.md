@@ -2,8 +2,8 @@
 
 Emerald Heart is an application for creating community directories and fostering community interaction.
 
-It is intentionally simple, a prototype MVP. It uses sqlite, django 6, HTMX, _HyperScript,
-tailwind, etc... it intentionally has few dependencies. 
+It is simple and built with sqlite, django 6, HTMX, _HyperScript, tailwind, etc... it intentionally
+has minimal dependencies. 
 
 ## Commands
 

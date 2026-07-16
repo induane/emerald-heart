@@ -11,12 +11,8 @@
                 <div class="text-gray-700">
                     <div class="grid md:grid-cols-2 text-sm">
                         <div class="grid grid-cols-2">
-                            <div class="px-4 py-2 font-semibold hover:text-green-800">First Name</div>
-                            <div class="px-4 py-2">{{ user.first_name }}</div>
-                        </div>
-                        <div class="grid grid-cols-2">
-                            <div class="px-4 py-2 font-semibold hover:text-green-800">Last Name</div>
-                            <div class="px-4 py-2">{{ user.last_name }}</div>
+                            <div class="px-4 py-2 font-semibold hover:text-green-800">Name</div>
+                            <div class="px-4 py-2">{{ user.name }}</div>
                         </div>
                         <div class="grid grid-cols-2">
                             <div class="px-4 py-2 font-semibold hover:text-green-800">Username</div>
@@ -25,11 +21,11 @@
                         <div class="grid grid-cols-2">
                             <div class="px-4 py-2 font-semibold hover:text-green-800">Email</div>
                             <div class="px-4 py-2">
-                                {% if user.email %}
-                                    <a class="text-green-800" href="mailto:{{ user.email }}">{{ user.email }}</a>
-                                {% else %}
-                                    (not set)
-                                {% endif %}
+                              {% if user.email %}
+                                <a class="text-green-800" href="mailto:{{ user.email }}">{{ user.email }}</a>
+                              {% else %}
+                                (not set)
+                              {% endif %}
                             </div>
                         </div>
                         <div class="grid grid-cols-2">

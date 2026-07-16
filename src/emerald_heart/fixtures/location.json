@@ -1,0 +1,24 @@
+[
+{
+    "model": "emerald_heart.location",
+    "pk": "c2b8b646-e8e9-46ce-8d46-8860ec701689",
+    "fields": {
+        "name": "Home",
+        "created": "2026-07-16T16:34:29.530Z",
+        "location": "SRID=3857;POINT (-10555678.437110912 4833902.376406039)",
+        "modified": "2026-07-16T16:34:29.530Z",
+        "user": "75954f34-a674-4e1a-b2aa-1e0ff142ba12"
+    }
+},
+{
+    "model": "emerald_heart.location",
+    "pk": "cae619ec-5305-4d8b-91c1-7d7651f0bd5e",
+    "fields": {
+        "name": "Home",
+        "created": "2026-07-16T16:34:00.944Z",
+        "location": "SRID=3857;POINT (-10562099.919346983 4690652.805994558)",
+        "modified": "2026-07-16T16:34:00.944Z",
+        "user": "ddfa3664-fb05-46d3-9bec-9b116226ddae"
+    }
+}
+]

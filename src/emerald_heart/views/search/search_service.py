@@ -16,14 +16,16 @@ LOG = logging.getLogger(__name__)
 
 def get_all_members(current_user: User | None = None) -> QuerySet[User]:
     """Return all members without filtering."""
-    return User.objects.filter(~Q(id=current_user.id))
+    return User.objects.filter(~Q(id=current_user.id) & ~Q(username="admin"))
 
 
 def get_members(location=None, distance=None, current_user: User | None = None) -> QuerySet[User]:
     """Query for members based on provided data."""
     if distance and location:
         distance_meters = Distance(mi=distance).m
-        qobj = Q(current_location__dwithin=(location, distance_to_degrees(distance_meters, location.y)))
+        qobj = Q(current_location__dwithin=(location, distance_to_degrees(distance_meters, location.y))) & ~Q(
+            username="admin"
+        )
         if current_user:
             qobj &= ~Q(id=current_user.id)
         return User.objects.filter(qobj).distinct()

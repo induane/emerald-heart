@@ -1,16 +1,14 @@
 {% if member_list %}
     {% for user in member_list %}
-        <div>
-            <div class="img-container">
-                {% if user.image %}
-                    {{ user.image.thumbnail_tag }}
-                {% else %}
-                    <i class="fa fa-user-circle no-image"></i>
+        <div class="flex items-start gap-4 border border-green-700 rounded-md shadow-sm px-4 py-4 my-2 bg-white">
+            <div class="shrink-0 self-stretch flex items-center">
+                <i class="las la-user-circle la-4x text-green-700"></i>
+            </div>
+            <div class="min-w-0 flex-1">
+                <div class="text-lg font-semibold text-gray-900 leading-tight mb-1">{{ user.name }}</div>
+                {% if user.bio %}
+                    <p class="text-sm text-gray-600 leading-snug line-clamp-3">{{ user.bio }}</p>
                 {% endif %}
-                <span class="card-name">
-                    {{ user.displayname }}
-                    <br />
-                </span>
             </div>
         </div>
     {% endfor %}

@@ -70,13 +70,14 @@ qs:  ## Launch a local runserver without running migrations or loading fixtures
 
 .PHONY: serve
 serve: migrate loaddata  ## Launch a local runserver
-	#
 	$(WITH_CONTEXT) uv run django-admin runserver --verbosity 3 $(IP):$(PORT)
 
-.PHONY: dump-auth
-dump-auth:  ## Update the auth fixture
+.PHONY: dump-fixtures
+dump-fixtures:  ## Update the auth fixture
 	@rm -rf $(MAKEFILE_DIR)/src/emerald_heart/fixtures/auth.json
+	@rm -rf $(MAKEFILE_DIR)/src/emerald_heart/fixtures/location.json
 	$(WITH_CONTEXT) uv run django-admin dumpdata auth.Group emerald_heart.User --indent=4 > $(MAKEFILE_DIR)/src/emerald_heart/fixtures/auth.json
+	$(WITH_CONTEXT) uv run django-admin dumpdata emerald_heart.Location --indent=4 > $(MAKEFILE_DIR)/src/emerald_heart/fixtures/location.json
 
 .PHONY: loaddata
 loaddata:  ## Load fixture data into the database

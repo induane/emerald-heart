@@ -1,29 +1,26 @@
 # AGENTS.md
 
-berklee_mls is a Django application for helping instructors provide meaningful feedback to students.
+Emerald Heart is an application for creating community directories and fostering community interaction.
 
 It is intentionally simple, a prototype MVP. It uses sqlite, django 6, HTMX, _HyperScript,
-tailwind, etc... it has few dependencies intentionally. 
+tailwind, etc... it intentionally has few dependencies. 
 
 ## Commands
 
 ```bash
 # Task runner (preferred)
 make check-code           ## Check the code for linter errors
+make check-html           ## Run template linter
 make check-types          ## Run the ty typechecker
 make clean                ## Cleanup project workspace
-make createsuperuser      ## Create a superuser in the database
 make css                  ## Generate output.css file
-make deploy               ## Deploy to the application
-make dump-auth            ## Update the auth fixture
-make dump-fixtures        ## Update all fixtures
+make dump-fixtures        ## Update the auth fixture
+make format-html          ## Run the template formatter
 make freeze               ## List packages installed in the virtual environment
 make generate-logos       ## Generate or regenerate logo files of various sizes
 make git-clean            ## Cleanup git repository and remove dangling refs
-make graph-dot            ## Generate a schema graph in dot format
-make graph-png            ## Generate a schema graph in png format
 make help                 ## Show this help
-make js                   ## Build or rebuild berklee.min.js bundle
+make js                   ## Build or rebuild emerald.min.js bundle
 make loaddata             ## Load fixture data into the database
 make node                 ## Install node packages
 make qs                   ## Launch a local runserver without running migrations or loading fixtures
@@ -31,11 +28,10 @@ make serve                ## Launch a local runserver
 make shell                ## Open an interactive Python shell in the projects context
 make unittests            ## Run the projects unittest suite
 make watch-css            ## Watch for changes to templates and rebuild CSS output as necessary
-make wheel                ## Build a wheel distribution
 
 
 # Run a single test method
-export DJANGO_SETTINGS_MODULE=berklee_mls.settings.test && uv run django-admin test -v 2 -k test_name_here
+export DJANGO_SETTINGS_MODULE=emerald_heart.settings.test && uv run django-admin test -v 2 -k test_name_here
 ```
 
 ## Javascript Bundle 
@@ -48,14 +44,14 @@ make js
 
 Which outputs:
 
-berklee-mls.min.js
-berklee-mls.min.js.map
+emerald.min.js
+emerald.min.js.map
 
 There is no package.json or package-lock.json file.
 
 ## CSS Bundle
 
-The file input.css found in src/berklee_mls/static/css is a config file for Tailwind. It lists CSS files
+The file input.css found in src/emerald_heart/static/css is a config file for Tailwind. It lists CSS files
 to be bundled into the minified CSS file. Sourcemaps are not supported. This is done using the command:
 
 ```
@@ -64,7 +60,7 @@ make css
 
 Which outputs:
 
-berklee-mls.min.css
+emerald.min.css
 
 
 ## Python Code Style
@@ -83,7 +79,7 @@ from datetime import timedelta
 from django.conf import settings
 from django.db import models
 
-from berklee_mls.utils.hash import hash_iter
+from emerald_heart.utils.hash import hash_iter
 ```
 
 No star imports outside settings files.

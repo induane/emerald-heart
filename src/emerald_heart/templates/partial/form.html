@@ -1,8 +1,8 @@
 {% load emerald_filters %}
 <form hx-post="{% if post_url %}{{ post_url }}{% else %}{{ request.path }}{% endif %}"
-      hx-swap="outerHTML"
+      hx-swap="{% if hx_swap %}{{ hx_swap }}{% else %}outerHTML{% endif %}"
       hx-encoding='multipart/form-data'
-      hx-target="this">
+      hx-target="{% if hx_target %}{{ hx_target }}{% else %}this{% endif %}">
     {% csrf_token %}
     {# Toss in all the hidden fields; they will exist but won't be displayed #}
     {% for field in form.hidden_fields %}{{ field }}{% endfor %}

@@ -1,0 +1,22 @@
+{% if member_list %}
+    {% for user in member_list %}
+        <div>
+            <div class="img-container">
+                {% if user.image %}
+                    {{ user.image.thumbnail_tag }}
+                {% else %}
+                    <i class="fa fa-user-circle no-image"></i>
+                {% endif %}
+                <span class="card-name">
+                    {{ user.displayname }}
+                    <br />
+                </span>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    {% if not initial %}
+        {% include 'partial/hr.html' %}
+        {% include 'partial/alerts/info.html' with alert_text='No members matched your search' %}
+    {% endif %}
+{% endif %}

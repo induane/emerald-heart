@@ -1,0 +1,10 @@
+<button type="button"
+        hx-target="#main-content"
+        hx-delete="{{ link_url }}"
+        hx-swap="{% if hx_swap %}{{ hx_swap }}{% else %}none{% endif %}"
+        hx-confirm="{% if delete_message %}{{ delete_message }}{% else %}Are you sure you want to delete {{ item_name }}?{% endif %}"
+        title="Delete {{ item_name }}"
+        class="{% include 'partial/buttons/common-classes.html' %}{% if extra_classes %} {{ extra_classes }}{% endif %} inline-block">
+    <i class="las la-trash-alt pr-0.5" aria-hidden="true"></i>
+    Delete
+</button>

@@ -14,33 +14,17 @@ class EmeraldUserAdmin(UserAdmin):
         (None, {"fields": ("username", "password")}),
         (
             "Personal info",
-            {
-                "fields": (
-                    "first_name",
-                    "last_name",
-                    "email",
-                    "bio",
-                )
-            },
+            {"fields": ("name", "email", "bio")},
         ),
         (
             "Permissions",
-            {
-                "fields": (
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
-                )
-            },
+            {"fields": ("is_active", "is_staff", "is_superuser", "groups", "user_permissions")},
         ),
         ("Important dates", {"fields": ("last_login",)}),
     )
     list_display = (
         "username",
-        "first_name",
-        "last_name",
+        "name",
         "email",
     )
     list_filter = ("username", "email")

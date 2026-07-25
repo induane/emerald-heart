@@ -1,23 +1,23 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
+from datetime import UTC, date, datetime
+from typing import Any, cast
 
 from django import forms
 
 from emerald_heart.middleware import get_request
-from emerald_heart.utils.calendar import utcnow
 from emerald_heart.views.core_form import FormBase
 
 LOG = logging.getLogger(__name__)
 
 
-def get_initial_date():
+def get_initial_date() -> date:
     """Callable for getting users "today" value."""
     try:
-        return get_request().user.today  # type: ignore
+        return cast(date, get_request().user.today)  # type: ignore
     except Exception:
-        return utcnow().date()
+        return datetime.now(UTC).date()
 
 
 class SearchForm(FormBase):
@@ -35,7 +35,7 @@ class SearchForm(FormBase):
         )
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         choices = [
             (0, "Current Location"),

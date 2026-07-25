@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import uuid
 import zoneinfo
-from datetime import date, datetime
+from datetime import UTC, date, datetime
 from functools import cached_property
 
 from django.contrib.auth.models import AbstractUser
@@ -12,7 +12,7 @@ from django.db import models
 
 from emerald_heart.hints import Coordinate
 from emerald_heart.models.mixins import BaseMixin
-from emerald_heart.utils.calendar import get_server_tz, is_naive, utcnow
+from emerald_heart.utils.calendar import get_server_tz, is_naive
 
 LOG = logging.getLogger(__name__)
 
@@ -659,7 +659,7 @@ class User(AbstractUser, BaseMixin):
     @property
     def today(self) -> date:
         """Returns a date object where "now" is the current day for the users timezone."""
-        return self.datetime_astimezone(utcnow()).date()
+        return self.datetime_astimezone(datetime.now(UTC)).date()
 
     @property
     def tzinfo(self) -> zoneinfo.ZoneInfo:

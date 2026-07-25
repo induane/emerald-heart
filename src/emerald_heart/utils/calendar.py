@@ -34,11 +34,6 @@ def get_server_tz() -> ZoneInfo:
         raise ValueError(f"Unable to find valid zoneinfo for server timezone: {server_tz}") from ie
 
 
-def utcnow() -> datetime:
-    """Return a timezone aware utcnow datetime object."""
-    return datetime.now(UTC)
-
-
 def is_naive(dt: datetime) -> bool:
     """Determine if a datetime object is naive."""
     if dt.tzinfo is None:

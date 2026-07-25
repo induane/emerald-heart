@@ -644,6 +644,7 @@ class User(AbstractUser, BaseMixin):
         default="America/Chicago",
     )
     current_location = gis_models.PointField(null=True, geography=False, srid=3857)
+    connections = models.ManyToManyField("self", blank=True)
 
     @cached_property
     def server_tzinfo(self) -> zoneinfo.ZoneInfo:

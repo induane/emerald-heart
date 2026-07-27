@@ -17,6 +17,7 @@
               hx-trigger="locationset"
               class="none"
               hx-swap="outerHTML">
+            {% csrf_token %}
             <input type="text" name="latitude" id="location-form-latitude">
             <input type="text" name="longitude" id="location-form-longitude">
         </form>

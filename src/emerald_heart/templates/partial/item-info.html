@@ -1,0 +1,44 @@
+{% load emerald_filters %}
+<div class="w-full flex flex-wrap gap-2 items-end flex-row-reverse">
+    {% if edit_url %}
+        {% include "partial/buttons/link.html" with button_text='Edit' link_url=edit_url la_icon='las la-pen-square' %}
+    {% endif %}
+    {# Any custom buttons, iterate through and add #}
+    {% block extra-buttons %}
+    {% endblock %}
+    {% for button in extra_buttons %}
+        {% if button.href %}
+            {% include "partial/buttons/href.html" with button_text=button.text link_url=button.url la_icon=button.la_icon target=button.target %}
+        {% else %}
+            {% include "partial/buttons/link.html" with button_text=button.text link_url=button.url la_icon=button.la_icon target=button.target new_tab=button.new_tab confirm_message=button.confirm_message %}
+        {% endif %}
+    {% endfor %}
+    {% if delete_url %}
+      {% if cancel_url %}
+        {% include "partial/buttons/delete.html" with link_url=delete_url hx_push_url=cancel_url %}
+      {% else %}
+        {% include "partial/buttons/delete.html" with link_url=delete_url %}
+      {% endif %}
+    {% endif %}
+</div>
+{% include 'partial/hr.html' %}
+
+<div class="w-full grid grid-cols-2 gap-2 px-3 py-2">
+    {% for key, value in item_dict.items %}
+        <div class="font-bold">{{ key|title }}:</div>
+        {% if value|item_type == 'list' %}
+            {% if value|length == 1 %}
+                <div class="text-right hover:text-green-800">{{ value.0|display_name }}</div>
+            {% else %}
+                <ul class="text-right hover:text-green-800">
+                    {% for item in value %}<li>{{ item|display_name }}</li>{% endfor %}
+                </ul>
+            {% endif %}
+        {% elif value|item_type == 'dict' or value|item_type == 'OrderedDict' %}
+            <ul class="text-right hover:text-green-800">
+                {% for s_key, s_value in value.items %}<li>{{ s_key|display_name }}: {{ s_value|display_name }}</li>{% endfor %}
+            {% else %}
+                <div class="text-right hover:text-green-800">{{ value }}</div>
+            {% endif %}
+        {% endfor %}
+    </div>

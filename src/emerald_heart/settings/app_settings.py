@@ -13,6 +13,9 @@ SITE_DESCRIPTION = "A directory and community oriented application."
 THUMBNAIL_SIZE = 256
 """Default size of thumbnail (in pixels) to generate when uploading images."""
 
+PAGINATION_THRESHOLD = 10
+"""Number if items to show before beginning to paginate the view."""
+
 
 LOGIN_TAB: SiteLayout = [
     {
@@ -44,5 +47,33 @@ SITE_DATA: SiteLayout = [
         "link_url": reverse_lazy("user-profile"),
         "visible": [],
         "actions": [],
+    },
+    {
+        "display_name": "Connections",
+        "id": "connections",
+        "icon": "la-link",
+        "tooltip": "Connections & Connection Requests",
+        "link_url": reverse_lazy("member-incoming-request-list"),
+        "visible": [],
+        "actions": [
+            {
+                "name": "Requests",
+                "icon": "la-unlink",
+                "action_id": "incoming-requests",
+                "link_url": reverse_lazy("member-incoming-request-list"),
+                "tooltip": "View incoming connection requests",
+                "visible": [],
+                "actions": [],
+            },
+            {
+                "name": "Pending",
+                "icon": "la-external-link-alt",
+                "action_id": "outgoing-requests",
+                "link_url": reverse_lazy("member-outgoing-request-list"),
+                "tooltip": "View my pending outgoing requests",
+                "visible": [],
+                "actions": [],
+            },
+        ],
     },
 ]

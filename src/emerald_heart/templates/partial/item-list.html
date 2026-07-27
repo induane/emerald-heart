@@ -1,0 +1,26 @@
+{% if item_count %}
+  {% if item_count > SEARCH_THRESHOLD or search_string %}
+    {% include "partial/search-bar.html" %}
+  {% endif %}
+{% else %}
+  {% if item_list.object_list.count > SEARCH_THRESHOLD or search_string %}
+    {% include "partial/search-bar.html" %}
+  {% endif %}
+{% endif %}
+<ul>
+    {% for item in item_list %}
+    <li
+        id="li-item-{{ item.id }}"
+        class="item-list-item flex border-solid border {% if selected.id == item.id %}border-green-600 bg-green-50 {% else %}border-slate-400 {% endif %} hover:cursor-pointer hover:bg-slate-400 hover:text-white rounded-sm p-1 mb-1"
+        hx-get="{% url info_url_name id=item.id %}"
+        hx-target="#item-instance-info"
+        hx-swap="innerHTML"
+        hx-push-url="{% url item_select_url_name id=item.id %}{% if QUERY_STRING %}?{{ QUERY_STRING }}{% endif %}"
+        _="on click remove .border-green-600 from .item-list-item then remove .bg-green-50 from .item-list-item then add .border-slate-400 to .item-list-item then add .border-green-600 to me then add .bg-green-50 to me then remove .border-slate-400 from me"
+    >
+        <div class="grow">{{ item.display_name }}</div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% include "partial/pagination-links.html" with item_list=item_list %}

@@ -42,7 +42,7 @@ class MemberSearch(EmeraldView):
         }
         if form.is_valid():
             context["member_list"] = get_members(
-                location=self.user.current_location,
+                location=self.user.current_location,  # type:ignore
                 distance=form.cleaned_data["distance"],
                 current_user=request.user,
             )
@@ -62,7 +62,7 @@ class MemberSearch(EmeraldView):
         if form.is_valid():
             context["member_list"] = tuple(
                 get_members(
-                    location=self.user.current_location,
+                    location=self.user.current_location,  # type: ignore
                     distance=form.cleaned_data["distance"],
                     current_user=request.user,
                 )

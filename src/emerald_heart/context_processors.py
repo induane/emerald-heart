@@ -24,12 +24,10 @@ def site_info(request) -> dict[str, object]:
             if not last_check:
                 site_context["REQUEST_LOCATION"] = True
             else:
-                delta = datetime.now(UTC) - parse_datetime(last_check)
-                if delta.total_seconds() > 600:
-                    site_context["REQUEST_LOCATION"] = True
-                else:
-                    site_context["REQUEST_LOCATION"] = False
-            pass
+                if last_check_parsed := parse_datetime(last_check):
+                    delta = datetime.now(UTC) - last_check_parsed
+                    if delta.total_seconds() > 600:
+                        site_context["REQUEST_LOCATION"] = True
         else:
             site_context["REQUEST_LOCATION"] = True
 

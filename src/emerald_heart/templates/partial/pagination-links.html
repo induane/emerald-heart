@@ -1,0 +1,70 @@
+{% firstof "text-white font-medium text-xs leading-tight uppercase rounded-sm cursor-pointer px-6 py-2.5 ml-1 border-1 border-solid" as base_button_classes %}
+{% firstof "bg-rose-800 hover:bg-rose-700 focus:bg-red-700 border-rose-800" as standard_button_classes %}
+
+{% if item_list.has_next or item_list.has_previous %}
+<div class="flex justify-end mt-4">
+  <nav aria-label="Page navigation">
+      {% if item_list.paginator.first_page != item_list.number and item_list.paginator.num_pages > 3 and item_list.paginator.first_page not in item_list.prev_pages %}
+        <page-item>
+          <a
+            class="page-link {{ base_button_classes }} {{ standard_button_classes }}"
+            href="?page={{ item_list.paginator.first_page }}"
+          >First</a>
+        </page-item>
+      {% endif %}
+
+      {% if item_list.has_previous and item_list.paginator.num_pages > 4 %}
+        <page-item>
+          <a
+            class="{{ base_button_classes }} {{ standard_button_classes }}"
+            href="?page={{ item_list.previous_page_number }}"
+          >Previous</a>
+        </page-item>
+      {% endif %}
+
+      {% for i in item_list.prev_pages %}
+        <page-item>
+          <a
+            class="{{ base_button_classes }} {{ standard_button_classes }}"
+            href="?page={{ i }}"
+          >{{ i }}</a>
+        </page-item>
+      {% endfor %}
+
+      <page-item>
+        <a
+          class="{{ base_button_classes }} bg-green-600 hover:bg-green-700 underline underline-offset-2 border-green-800 dark:border-green-400"
+          href="?page={{ item_list.number }}"
+        >{{ item_list.number }}</a>
+      </page-item>
+
+      {% for i in item_list.next_pages %}
+        <page-item>
+          <a
+            class="{{ base_button_classes }} {{ standard_button_classes }}"
+            href="?page={{ i }}"
+          >{{ i }}</a>
+        </page-item>
+      {% endfor %}
+
+      {% if item_list.has_next and item_list.paginator.num_pages > 4 %}
+        <page-item>
+          <a
+            class="{{ base_button_classes }} {{ standard_button_classes }}"
+            href="?page={{ item_list.next_page_number }}"
+          >Next</a>
+        </page-item>
+      {% endif %}
+
+      {% if item_list.paginator.last_page != item_list.number and item_list.paginator.num_pages > 3 and item_list.paginator.last_page not in item_list.next_pages %}
+        <page-item>
+          <a
+            class="{{ base_button_classes }} {{ standard_button_classes }}"
+            href="?page={{ item_list.paginator.last_page }}"
+          >Last</a>
+        <page-item/>
+      {% endif %}
+
+  </nav>
+</div>
+{% endif %}

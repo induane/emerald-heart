@@ -1,0 +1,37 @@
+{% extends 'layout-sidebar-2col.html' %}
+{% block column_1_content %}
+    {% if column_1_name %}
+        <h1 class="text-slate-700 text-xl md:text-2xl mb-3 font-bold"
+            id="column-1-header">
+            {{ column_1_name }}
+            {% if create_link %}
+                {% include 'partial/buttons/link.html' with button_text='New' link_url=create_link extra_classes='float-right' la_icon='las la-plus' %}
+            {% endif %}
+        </h1>
+    {% endif %}
+    {% include 'partial/item-list.html' %}
+
+    {% if not item_list %}
+      {% if search_string %}
+        {% include 'partial/alerts/info.html' with alert_text='There are no that match your search.' %}
+      {% elif create_link %}
+        {% include 'partial/alerts/info.html' with alert_text='There are currently no items to display. Click the NEW button to add the first item.' %}
+      {% else %}
+        {% include 'partial/alerts/info.html' with alert_text='There are currently no items to display.' %}
+      {% endif %}
+    {% endif %}
+{% endblock %}
+{% block column_2_content %}
+    {% if column_2_name %}
+        <h1 class="text-slate-700 text-xl md:text-2xl mb-3 font-bold"
+            id="column-2-header">{{ column_2_name }}</h1>
+    {% endif %}
+    <div id="item-instance-info">
+        {# If the user has loaded a page where the item info is already selected #}
+        {# then include the info page. #}
+        {% firstof info_template "partial/item-info.html" as item_info_template %}
+        {% if item_dict %}
+            {% include item_info_template %}
+        {% endif %}
+    </div>
+{% endblock %}

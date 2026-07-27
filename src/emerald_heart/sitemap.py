@@ -17,7 +17,7 @@ class StaticPages(Sitemap):
             case _:
                 return "weekly"
 
-    def location(self, item: str) -> str:  # type: ignore
+    def location(self, item: str) -> str:
         return str(reverse(item))
 
 

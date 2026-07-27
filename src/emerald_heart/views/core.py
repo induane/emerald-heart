@@ -8,6 +8,7 @@ from urllib.parse import urlparse, urlunparse
 from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.models import AnonymousUser
+from django.db.models import Q
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseRedirect, QueryDict
 from django.shortcuts import render as render_template
 from django.shortcuts import resolve_url
@@ -16,6 +17,7 @@ from django.views.generic import View
 
 from emerald_heart.hints import ResponseType, UrlType
 from emerald_heart.models import User
+from emerald_heart.utils.query import build_search_qobj
 from emerald_heart.utils.render import HttpResponseHXRedirect
 
 LOG = logging.getLogger(__name__)
@@ -34,6 +36,21 @@ class EmeraldView(View):
 
     def get_context_data(self, request: HttpRequest, *args, **kwargs) -> dict[str, Any]:
         return {}
+
+    def get_search_qobj(self, search: str, fields: tuple[str, ...] = ()) -> Q:
+        """Return a Q object for the given model & search terms."""
+        return build_search_qobj(q_str=search, fields=fields)
+
+    def get_page(self, request: HttpRequest) -> int | None:
+        if page := request.GET.get("page"):
+            try:
+                page = int(page)
+            except Exception:
+                LOG.warning("Cannot convert page number '%s' to an integer", page)
+                page = None
+        else:
+            page = None
+        return page
 
     def has_permission(self, request: HttpRequest, *args, **kwargs) -> bool:
         """
@@ -84,7 +101,7 @@ class EmeraldView(View):
         elif user is None:
             return {"anonymous"}
         try:
-            return set(self.user.group_list)
+            return set(self.user.group_list)  # type:ignore
         except Exception:
             LOG.exception("Unable to get user groups")
             return {"anonymous"}
@@ -150,7 +167,7 @@ class EmeraldView(View):
         # Stash a few lookup checks (they're added via middleware so type checking doesn't work)
         is_htmx: bool = request.is_htmx  # type:ignore
         is_boosted: bool = request.hx_boosted  # type:ignore
-        user = request.user  # type:ignore
+        user = request.user
 
         if not user.is_authenticated and self.auth_required is True:
             resolved_url = resolve_url(reverse_lazy("auth-login"))

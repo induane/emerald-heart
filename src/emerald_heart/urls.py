@@ -22,7 +22,7 @@ from __future__ import annotations
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.contrib.sitemaps.views import sitemap
-from django.urls import path
+from django.urls import include, path
 from django.views.decorators.cache import cache_page
 from django.views.generic import RedirectView
 from django.views.generic.base import TemplateView
@@ -67,4 +67,5 @@ urlpatterns = [
     path("user/profile/", UserProfile.as_view(), name="user-profile"),
     path("search/", MemberSearch.as_view(), name="member-search"),
     path("admin/", admin.site.urls),
+    path("connection/", include("emerald_heart.views.connection.urls")),
 ]

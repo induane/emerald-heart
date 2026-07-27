@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.gis.admin import GISModelAdmin
 
-from emerald_heart.models import Location, User
+from emerald_heart.models import Location, Request, User
 
 
 class EmeraldUserAdmin(UserAdmin):
@@ -38,3 +38,4 @@ class LocationAdmin(GISModelAdmin):
 
 admin.site.register(User, EmeraldUserAdmin)
 admin.site.register(Location, LocationAdmin)
+admin.site.register(Request)

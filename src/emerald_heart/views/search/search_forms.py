@@ -40,9 +40,9 @@ class SearchForm(FormBase):
         choices = [
             (0, "Current Location"),
         ]
-        for location in self.user.location_set.all():
+        for location in self.user.location_set.all():  # type: ignore
             choices.append((location.id, location.name))
-        self.fields["location"].choices = choices
+        self.fields["location"].choices = choices  # type: ignore
 
     def clean(self) -> dict[str, Any]:
         """Extra form cleaning."""

@@ -41,7 +41,7 @@ class ModelFormBase(forms.ModelForm):
 
     @property
     def user(self) -> User:
-        return cast(User, self.request.user)  # type: ignore
+        return cast(User, self.request.user)
 
 
 class FormBase(forms.Form):
@@ -66,4 +66,4 @@ class FormBase(forms.Form):
 
     @property
     def user(self) -> User:
-        return cast(User, self.request.user)  # type: ignore
+        return cast(User, self.request.user)

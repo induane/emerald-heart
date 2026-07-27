@@ -16,7 +16,10 @@ LOG = logging.getLogger(__name__)
 
 def get_all_members(current_user: User | None = None) -> QuerySet[User]:
     """Return all members without filtering."""
-    return User.objects.filter(~Q(id=current_user.id) & ~Q(username="admin"))
+    if current_user is not None:
+        return User.objects.filter(~Q(id=current_user.id) & ~Q(username="admin"))
+    else:
+        return User.objects.none()
 
 
 def get_members(location=None, distance=None, current_user: User | None = None) -> QuerySet[User]:
@@ -26,7 +29,7 @@ def get_members(location=None, distance=None, current_user: User | None = None) 
         qobj = Q(current_location__dwithin=(location, distance_to_degrees(distance_meters, location.y))) & ~Q(
             username="admin"
         )
-        if current_user:
+        if current_user is not None:
             qobj &= ~Q(id=current_user.id)
         return User.objects.filter(qobj).distinct()
     else:

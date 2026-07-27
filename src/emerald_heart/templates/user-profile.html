@@ -1,7 +1,7 @@
 {% extends 'core.html' %}
 {% block body %}
-    <main class="container px-3 py-3 w-full max-w-3xl md:flex no-wrap md:-mx-2">
-        <div class="w-full md:w-9/12 mx-2 h-64 ml-auto mr-auto">
+    <main class="px-3 py-3 w-full md:flex no-wrap md:mx-2">
+        <div class="w-full md:w-9/12 mx-2 h-64 ml-auto mr-auto max-w-6xl">
             <div class="flex flex-wrap justify-items-stretch gap-2 mb-2">
                 {% include 'partial/buttons/link.html' with button_text='Change Password' link_url=change_password_link la_icon='las la-key' extra_classes='flex-auto' %}
                 {% include 'partial/buttons/link.html' with button_text='Edit Profile' link_url=edit_profile_link la_icon='las la-edit' extra_classes='flex-auto' %}

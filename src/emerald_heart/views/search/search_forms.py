@@ -49,7 +49,7 @@ class SearchForm(FormBase):
         data = super().clean() or {}
         try:
             data["distance"] = int(data.get("distance", 100))
-        except (TypeError, ValueError):
+        except TypeError, ValueError:
             self.add_error("distance", "Invalid distance")
             data.pop("distance", None)
         return data

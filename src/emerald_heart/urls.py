@@ -28,10 +28,9 @@ from django.views.generic import RedirectView
 from django.views.generic.base import TemplateView
 
 from emerald_heart.sitemap import sitemap_data
-from emerald_heart.views import CreateLocation, DeleteLocation, EditProfile, EmeraldLogout, UserProfile
+from emerald_heart.views import EmeraldLogout
 from emerald_heart.views.auth.login_form import EmeraldAuthForm
 from emerald_heart.views.location import LocationData
-from emerald_heart.views.search.search import MemberSearch
 
 urlpatterns = [
     path(
@@ -61,11 +60,8 @@ urlpatterns = [
     ),
     path("location/set/", LocationData.as_view(), name="set-location"),
     path("auth/logout/", EmeraldLogout.as_view(), name="auth-logout"),
-    path("user/profile/location/create/", CreateLocation.as_view(), name="user-location-create"),
-    path("user/profile/location/delete/<uuid:uuid>/", DeleteLocation.as_view(), name="user-location-delete"),
-    path("user/profile/edit", EditProfile.as_view(), name="user-profile-edit"),
-    path("user/profile/", UserProfile.as_view(), name="user-profile"),
-    path("search/", MemberSearch.as_view(), name="member-search"),
+    path("user/profile/", include("emerald_heart.views.profile.urls")),
+    path("search/", include("emerald_heart.views.search.urls")),
     path("admin/", admin.site.urls),
     path("connection/", include("emerald_heart.views.connection.urls")),
 ]

@@ -4,11 +4,11 @@ import logging
 from uuid import UUID
 
 from django.contrib.gis.measure import Distance
-from django.db.models import Q
+from django.db.models import Exists, OuterRef, Q
 from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404
 
-from emerald_heart.models import User
+from emerald_heart.models import Request, User
 from emerald_heart.utils.spatial import distance_to_degrees
 
 LOG = logging.getLogger(__name__)
@@ -17,7 +17,10 @@ LOG = logging.getLogger(__name__)
 def get_all_members(current_user: User | None = None) -> QuerySet[User]:
     """Return all members without filtering."""
     if current_user is not None:
-        return User.objects.filter(~Q(id=current_user.id) & ~Q(username="admin"))
+        has_sent_request = Exists(Request.objects.filter(source_user=current_user, dest_user=OuterRef("pk")))
+        return User.objects.filter(~Q(id=current_user.id) & ~Q(username="admin")).annotate(
+            has_sent_request=has_sent_request
+        )
     else:
         return User.objects.none()
 
@@ -31,7 +34,11 @@ def get_members(location=None, distance=None, current_user: User | None = None) 
         )
         if current_user is not None:
             qobj &= ~Q(id=current_user.id)
-        return User.objects.filter(qobj).distinct()
+        qs = User.objects.filter(qobj).distinct()
+        if current_user is not None:
+            has_sent_request = Exists(Request.objects.filter(source_user=current_user, dest_user=OuterRef("pk")))
+            qs = qs.annotate(has_sent_request=has_sent_request)
+        return qs
     else:
         return get_all_members(current_user=current_user)
 

@@ -1,0 +1,130 @@
+[
+{
+    "model": "emerald_heart.user",
+    "pk": "11111111-1111-4111-a111-111111111111",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$cpFyv1ytoNI9VL2lO0hMoV$PLJgN/4+th4EWTDYcBYXMnEch4zuOI4afykkCzZVRwE=",
+        "last_login": "2026-01-01T00:00:00.000Z",
+        "is_superuser": false,
+        "username": "alice",
+        "first_name": "",
+        "last_name": "",
+        "email": "alice@test.org",
+        "is_staff": false,
+        "date_joined": "2025-01-01T00:00:00.000Z",
+        "name": "Alice Alpha",
+        "is_active": true,
+        "bio": "Current user for search tests",
+        "timezone": "America/Chicago",
+        "current_location": "SRID=3857;POINT (-94.6 39.1)",
+        "groups": [3],
+        "user_permissions": []
+    }
+},
+{
+    "model": "emerald_heart.user",
+    "pk": "22222222-2222-4222-a222-222222222222",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$cpFyv1ytoNI9VL2lO0hMoV$PLJgN/4+th4EWTDYcBYXMnEch4zuOI4afykkCzZVRwE=",
+        "last_login": "2026-01-01T00:00:00.000Z",
+        "is_superuser": false,
+        "username": "bob",
+        "first_name": "",
+        "last_name": "",
+        "email": "bob@test.org",
+        "is_staff": false,
+        "date_joined": "2025-01-01T00:00:00.000Z",
+        "name": "Bob Bravo",
+        "is_active": true,
+        "bio": "Near KC, has request from alice",
+        "timezone": "America/Chicago",
+        "current_location": "SRID=3857;POINT (-94.61 39.11)",
+        "groups": [3],
+        "user_permissions": []
+    }
+},
+{
+    "model": "emerald_heart.user",
+    "pk": "33333333-3333-4333-a333-333333333333",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$cpFyv1ytoNI9VL2lO0hMoV$PLJgN/4+th4EWTDYcBYXMnEch4zuOI4afykkCzZVRwE=",
+        "last_login": "2026-01-01T00:00:00.000Z",
+        "is_superuser": false,
+        "username": "carol",
+        "first_name": "",
+        "last_name": "",
+        "email": "carol@test.org",
+        "is_staff": false,
+        "date_joined": "2025-01-01T00:00:00.000Z",
+        "name": "Carol Charlie",
+        "is_active": true,
+        "bio": "Near KC, no request from alice",
+        "timezone": "America/Chicago",
+        "current_location": "SRID=3857;POINT (-94.59 39.09)",
+        "groups": [3],
+        "user_permissions": []
+    }
+},
+{
+    "model": "emerald_heart.user",
+    "pk": "44444444-4444-4444-a444-444444444444",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$cpFyv1ytoNI9VL2lO0hMoV$PLJgN/4+th4EWTDYcBYXMnEch4zuOI4afykkCzZVRwE=",
+        "last_login": "2026-01-01T00:00:00.000Z",
+        "is_superuser": false,
+        "username": "dave",
+        "first_name": "",
+        "last_name": "",
+        "email": "dave@test.org",
+        "is_staff": false,
+        "date_joined": "2025-01-01T00:00:00.000Z",
+        "name": "Dave Delta",
+        "is_active": true,
+        "bio": "Far away in NY, has request from alice",
+        "timezone": "America/New_York",
+        "current_location": "SRID=3857;POINT (-74.0 40.7)",
+        "groups": [3],
+        "user_permissions": []
+    }
+},
+{
+    "model": "emerald_heart.user",
+    "pk": "55555555-5555-4555-a555-555555555555",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$cpFyv1ytoNI9VL2lO0hMoV$PLJgN/4+th4EWTDYcBYXMnEch4zuOI4afykkCzZVRwE=",
+        "last_login": "2026-01-01T00:00:00.000Z",
+        "is_superuser": false,
+        "username": "eve",
+        "first_name": "",
+        "last_name": "",
+        "email": "eve@test.org",
+        "is_staff": false,
+        "date_joined": "2025-01-01T00:00:00.000Z",
+        "name": "Eve Echo",
+        "is_active": true,
+        "bio": "Far away in LA, no request from alice",
+        "timezone": "America/Los_Angeles",
+        "current_location": "SRID=3857;POINT (-118.2 34.1)",
+        "groups": [3],
+        "user_permissions": []
+    }
+},
+{
+    "model": "emerald_heart.request",
+    "pk": "aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa",
+    "fields": {
+        "source_user": "11111111-1111-4111-a111-111111111111",
+        "dest_user": "22222222-2222-4222-a222-222222222222",
+        "created": "2025-06-01T00:00:00.000Z"
+    }
+},
+{
+    "model": "emerald_heart.request",
+    "pk": "bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb",
+    "fields": {
+        "source_user": "11111111-1111-4111-a111-111111111111",
+        "dest_user": "44444444-4444-4444-a444-444444444444",
+        "created": "2025-06-01T00:00:00.000Z"
+    }
+}
+]

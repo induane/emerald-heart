@@ -25,21 +25,13 @@ class MemberSearch(EmeraldView):
 
     def get(self, request, *args, **kwargs) -> ResponseType:
         form = SearchForm()
-        context = {
-            "member_list": [],
-            "form": form,
-            "initial": True,
-        }
+        context = {"member_list": [], "form": form, "initial": True}
         return self.render(context)
 
     def post(self, request, *args, **kwargs) -> ResponseType:
         LOG.error("Got regular post")
         form = SearchForm(request.POST)
-        context = {
-            "member_list": [],
-            "form": form,
-            "initial": False,
-        }
+        context = {"member_list": [], "form": form, "initial": False}
         if form.is_valid():
             context["member_list"] = get_members(
                 location=self.user.current_location,  # type:ignore
@@ -54,11 +46,7 @@ class MemberSearch(EmeraldView):
     def hx_post(self, request, *args, **kwargs) -> ResponseType:
         LOG.error("Got hx-post")
         form = SearchForm(request.POST)
-        context = {
-            "member_list": [],
-            "form": form,
-            "initial": False,
-        }
+        context = {"member_list": [], "form": form, "initial": False}
         if form.is_valid():
             context["member_list"] = tuple(
                 get_members(

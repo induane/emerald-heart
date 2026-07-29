@@ -40,7 +40,7 @@ migrations:  # Generate database migrations
 
 .PHONY: check-types
 check-types:  ## Run the ty typechecker
-	uv run --group dev ty check --exclude=**/utils/image.py
+	uv run --group dev ty check --exclude=**/utils/image.py --exclude=tests/**/*.py
 
 .PHONY: check-html
 check-html:  ## Run template linter

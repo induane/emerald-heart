@@ -23,6 +23,11 @@ urlpatterns = [
         name="member-incoming-request-list",
     ),
     path(
+        "request/from/<uuid:src_id>/to/<uuid:dest_id>",
+        ListIncomingRequests.as_view(),
+        name="member-create-request",
+    ),
+    path(
         "request/incoming/list/selected/<uuid:id>",
         ListIncomingRequestsSelected.as_view(),
         name="member-incoming-request-list-selected",
